@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="d3-scale.min.js"></script>
+
+    <script src="https://d3js.org/d3-array.v0.7.min.js"></script>
+    <script src="https://d3js.org/d3-collection.v0.2.min.js"></script>
+    <script src="https://d3js.org/d3-color.v0.4.min.js"></script>
+    <script src="https://d3js.org/d3-format.v0.5.min.js"></script>
+    <script src="https://d3js.org/d3-interpolate.v0.8.min.js"></script>
+    <script src="https://d3js.org/d3-time.v0.2.min.js"></script>
+    <script src="https://d3js.org/d3-time-format.v0.3.min.js"></script>
+    <script src="https://d3js.org/d3-scale.v0.7.min.js"></script>
+
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+    <title></title>
+  </head>
+  <body>
+  	<div id="scale"></div>
+  	<div id="title"><h2>Visualisation des Billets Vendus</h2></div>
+  	<div id="theatre"></div>
+  	
+  	<div id="nav">
+  		<div id="nav_slide">
+			<p>
+  				<label for="amount">Saison 1784-1785:</label>
+  				<input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  				<select name="seasonChooser" id="seasonChooser">
+
+  				</select>
+			</p>
+			<div id="slider"></div>
+		</div>
+  	</div>
+  </body>
+</html>
+
+<script>
+var max_vals;
+var color = d3.scale.linear()
+	.domain([0,1])
+	.range(["blue","red"]);
+var svg;
+
+
+$(document).ready(function () {
+
+	$("#seasonChooser").change(function() {
+		getSeasonSlider();
+	});
+
+	$(document).tooltip();
+
+	svg=d3.select("#scale").append("svg")
+		.attr("width","100%")
+		.attr("height","100%")
+
+	var gradient = svg.append("defs")
+	  .append("linearGradient")
+	    .attr("id", "gradient")
+	    .attr("x1", "0%")
+	    .attr("y1", "0%")
+	    .attr("x2", "0%")
+	    .attr("y2", "100%")
+	    .attr("spreadMethod", "pad");
+
+	gradient.append("stop")
+	    .attr("offset", "0%")
+	    .attr("stop-color", color(1))
+	    .attr("stop-opacity", 1);
+
+	gradient.append("stop")
+	    .attr("offset", "100%")
+	    .attr("stop-color", color(0))
+	    .attr("stop-opacity", 1);
+
+	svg.append("rect")
+	    .attr("width", "100%")
+	    .attr("height", "100%")
+	    .style("fill", "url(#gradient)");
+
+	$.ajax({ 
+	       		type: 'GET', 
+	        	url: 'seating_measures.php?max=true',
+	        	data: { get_param: 'value' }, 
+	        	success: function(data) { 
+	        		max_vals = JSON.parse(data);
+	        }
+	 });
+});
+
+
+function colorizer (sliderDay) {
+		var day_vals;
+		//Les max
+			
+
+	    //Les valeurs du jour
+			$.ajax({ 
+	       		type: 'GET', 
+	        	url: 'seating_measures.php?day=' + $( "#slider" ).val(),
+	        	data: { get_param: 'value' }, 
+	        	success: function(data) { 
+	        		day_vals = JSON.parse(data);
+	        		//parterre
+	        		var part_color = color(parseInt(day_vals["parterre"]) / parseInt(max_vals["parterre"]));
+	        		$('.tile_0').attr("fill",part_color);
+	        		$('.tile_0').attr("title","Parterre : " + day_vals["parterre"]);
+
+	        		var heightScale = $("#scale").height();
+	        		var positionParterre = heightScale * (parseInt(day_vals["parterre"]) / parseInt(max_vals["parterre"]));
+	        		d3.select("#Parterre").remove();
+	        		var previousLine = svg.append("line")
+	        			.attr("x1", 0)
+	        			.attr("y1", heightScale-positionParterre)
+	        			.attr("x2", 100)
+	        			.attr("id","Parterre")
+	        			.attr("y2", heightScale-positionParterre)
+	        			.attr("stroke-width",2)
+	        			.attr("stroke","black");
+
+
+	        		var something = d3.select("body").append("svg");
+	        		something.attr("id","theTextSvg")
+	       			something.attr("x", 120 + $("#scale").offset()["left"]);
+	       			something.attr("y", $("#scale").offset()["top"]);
+					something.attr("height","50");
+					something.attr("width","100");
+	        		something.append("text")
+	        			.attr("dx",0)
+	        			.attr("dy",0)
+	        			.attr("id","parterre_text")
+	        			.attr("fill","black")
+	        			.text(function(d) {
+	        				var x=previousLine.attr("id");
+	        				return x;
+	        			});
+	        		
+
+	        		//galerie
+	        		var part_color = color(parseInt(day_vals["galerie"]) / parseInt(max_vals["galerie"]));
+	        		$('.tile_1').attr("fill",part_color);
+	        		$('.tile_1').attr("title","Galerie : " + day_vals["galerie"]);
+
+	        		var positionGalerie = heightScale * (parseInt(day_vals["galerie"]) / parseInt(max_vals["galerie"]));
+	        		d3.select("#galerie").remove();
+	        		var galerieLine = svg.append("line")
+	        			.attr("x1", 0)
+	        			.attr("y1", heightScale-positionGalerie)
+	        			.attr("x2", 100)
+	        			.attr("id","galerie")
+	        			.attr("y2", heightScale-positionGalerie)
+	        			.attr("stroke-width",2)
+	        			.attr("stroke","black");
+
+	        		var part_color = color(parseInt(day_vals["1eres"]) / parseInt(max_vals["1eres"]));
+	        		$('.tile_2').attr("fill",part_color);
+	        		$('.tile_2').attr("title","Premier étage : " + day_vals["1eres"]);
+
+	        		var positionFirst = heightScale * (parseInt(day_vals["1eres"]) / parseInt(max_vals["1eres"]));
+	        		d3.select("#Premier_étage").remove();
+	        		var firstLine = svg.append("line")
+	        			.attr("x1", 0)
+	        			.attr("y1", heightScale-positionFirst)
+	        			.attr("x2", 100)
+	        			.attr("id","Premier_étage")
+	        			.attr("y2", heightScale-positionFirst)
+	        			.attr("stroke-width",2)
+	        			.attr("stroke","black");
+
+
+	        		var part_color = color(parseInt(day_vals["2emes"]) / parseInt(max_vals["2emes"]));
+	        		$('.tile_3').attr("fill",part_color);
+	        		$('.tile_3').attr("title","Deuxième étage : " + day_vals["2emes"]);
+
+	        		var positionSecond = heightScale * (parseInt(day_vals["2emes"]) / parseInt(max_vals["2emes"]));
+	        		d3.select("#Deuxième_étage").remove();
+	        		var secondLine = svg.append("line")
+	        			.attr("x1", 0)
+	        			.attr("y1", heightScale-positionSecond)
+	        			.attr("x2", 100)
+	        			.attr("id","Deuxième_étage")
+	        			.attr("y2", heightScale-positionSecond)
+	        			.attr("stroke-width",2)
+	        			.attr("stroke","black");
+
+
+	        		var part_color = color(parseInt(day_vals["3emes"]) / parseInt(max_vals["3emes"]));
+	        		$('.tile_4').attr("fill",part_color);
+	        		$('.tile_4').attr("title","Troisième étage : " + day_vals["3emes"]);
+
+	        		var positionThird = heightScale * (parseInt(day_vals["3emes"]) / parseInt(max_vals["3emes"]));
+	        		d3.select("#Troisième_étage").remove();
+	        		var thirdLine = svg.append("line")
+	        			.attr("x1", 0)
+	        			.attr("y1", heightScale-positionThird)
+	        			.attr("x2", 100)
+	        			.attr("id","Troisième_étage")
+	        			.attr("y2", heightScale-positionThird)
+	        			.attr("stroke-width",2)
+	        			.attr("stroke","black");
+
+
+	        		var part_color = color(parseInt(day_vals["paradis"]) / parseInt(max_vals["paradis"]));
+	        		$('.tile_5').attr("fill",part_color);
+	        		$('.tile_5').attr("title","Paradis : " + day_vals["paradis"]);
+
+	        		var positionParadis = heightScale * (parseInt(day_vals["paradis"]) / parseInt(max_vals["paradis"]));
+	        		d3.select("#Paradis").remove();
+	        		var thirdLine = svg.append("line")
+	        			.attr("x1", 0)
+	        			.attr("y1", heightScale-positionParadis)
+	        			.attr("x2", 100)
+	        			.attr("id","Paradis")
+	        			.attr("y2", heightScale-positionParadis)
+	        			.attr("stroke-width",2)
+	        			.attr("stroke","black");
+
+	        		
+	        	}
+	    	});
+	    
+}
+
+
+
+var pi = Math.PI;
+	var valMap=[];
+	var seasons = [];
+function getSeasonSlider() {
+	var valMap=[];
+	var theSeason=$("#seasonChooser").val();
+	$.ajax({ 
+
+	       		type: 'GET', 
+	        	url: "getDays.php",
+	        	data: { get_param: 'value',req:'days',season:theSeason }, 
+	        	success: function(data) { 
+	        		var theDates = JSON.parse(data);
+	        		$(theDates).each(function (e,y) {
+	        			valMap.push(y);
+	        		});
+	        		$( "#slider" ).slider({
+	        	      	max: valMap.length - 1, // Set "max" attribute to array length
+	        	      	min: 0,
+	        	      	values: [0],
+	        	      	stop: function( event, ui ) {
+	        	        	$( "#amount" ).val(valMap[ui.values[0]]);
+	        	        	$("#slider").val(valMap[ui.values[0]]); // Fetch selected value from array
+
+	        	        	colorizer(valMap[ui.values[0]]);            
+	        	      	}
+	        	    });
+	        	    $( "#amount" ).val(valMap[$( "#slider" ).slider( "value" )]);
+	        	}
+	        });
+}
+
+$(function(){
+var origColor;
+
+	$.ajax({
+		type: 'GET', 
+	    url: 'getSeasons.php?req=seasons',
+	    data: { get_param: 'value' },
+	    success: function(data) { 
+	        var theSeasons = JSON.parse(data);
+	        $(theSeasons).each(function (e,y) {
+	        	$("#seasonChooser").append("<option value="+ y + ">" + y + "</option>");
+	        });
+
+	    }
+
+	});
+	
+
+
+
+	var ww = $('#theatre').width();
+	var wh = $(window).height() - 25;
+	var vis = d3.select("#theatre").append("svg").attr("width", ww).attr("height", wh);
+	$('#theatre').css("height", wh);
+
+	var coords = [
+		{ "inner": 0, "outer": .17, "color": "#A0D5D2", "offset": 15, "place": "Parterre Assis"},
+		{ "inner": .19, "outer": .21, "color": "#ECE7E1", "offset": 0, "place": "Galerie"},
+		{ "inner": .21, "outer": .26, "color": "#2F1330", "offset": 0, "place": "Prémier_Loge"},
+		{ "inner": .28, "outer": .33, "color": "#4B4360", "offset": 0, "place": "Deuxième_Loge"},
+		{ "inner": .35, "outer": .39, "color": "#627291", "offset": 0, "place": "Troisième_Loge"},
+		{ "inner": .41, "outer": .46, "color": "#8AB0C0", "offset": 0, "place": "Paradis"}
+	];
+
+	$(coords).each(function(x,y){
+
+		var arc = d3.svg.arc()
+			.innerRadius(Math.min(ww,wh) * y.inner)
+		    .outerRadius(Math.min(ww,wh) * y.outer)
+		    .startAngle(-90 * (pi/180)) //converting from degs to radians
+		    .endAngle(90 * (pi/180)) //just radians
+
+		vis.append("path")
+		    .attr("d", arc)
+		    .attr("fill", y.color)
+		    .attr("class", y.place)
+		    .attr("class", "tile_" + x)
+		    .attr("stroke", "#333333")
+		    .attr("stoke-shadow", "3px 3px 3px black")
+		    .attr("stroke-width", "1px")
+		    .on("mouseover", function(d){
+		    	origColor=$(this).attr("fill");
+		    	d3.select(this).attr("fill", "#999999");
+		    })
+		    .on("mouseout", function(d){
+				d3.select(this).attr("fill", origColor);
+		    })
+		    .attr("transform", "translate("+ww/2+","+ (wh/1.5 + y.offset) +")");
+
+	});
+    
+});
+
+</script>
+
+<style>
+
+	#amount {
+		font-size: 18px;
+	}
+
+	body {
+		font-family: 'PT Sans', sans-serif;
+	}
+
+	#nav {
+		bottom: 5%;
+		margin: auto;
+		position: absolute;
+		width: 100%;
+	}
+
+	#nav_slide {
+		margin: auto;
+		width: 45%;
+	}
+
+	#theatre {
+		display: block;
+		margin: auto;
+		width: 70%;
+	}
+
+	#title {
+		position: absolute;
+		top: 1%;
+		left: 3%;
+	}
+
+	#scale {
+		position: absolute;
+		top: 20%;
+		left:5%;
+		width: 40px;
+		height: 200px;
+		overflow: auto;
+		z-index: 100;
+	}
+	#theTextSvg {
+		position:absolute;
+	}
+
+</style>
