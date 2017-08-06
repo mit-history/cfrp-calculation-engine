@@ -1,0 +1,15 @@
+
+
+#legend {
+	display: block;
+	margin: auto;
+}
+
+#theaters {
+	border: 1px solid gray;
+	height: auto;
+}
+
+.visualization {
+	margin: 10px;
+}

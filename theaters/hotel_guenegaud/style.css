@@ -1,0 +1,52 @@
+
+@font-face {
+  font-family: 'MuseoSans300';
+  src: url('../../fonts/2386DB_1_0.eot'); /* IE9 Compat Modes */
+  src: url('../../fonts/2386DB_1_0.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../../fonts/2386DB_1_0.woff') format('woff'), /* Modern Browsers */
+       url('../../fonts/2386DB_1_0.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
+html {
+	font-family: "MuseoSans300", "Helvetica", sans-serif;
+}
+
+#guenegaud {
+	border: 1px dashed black;
+	height: 85%;
+	margin: auto;
+	margin-top: 5%;
+	padding: 10px;
+	width: 75%;
+}
+#guenegaud::before {
+	content: 'Hôtel Guénégaud';
+	top: 5%;
+	position: absolute;
+}
+
+.loge, .arc {
+	fill: #159489;
+}
+.loge:hover, .arc:hover{
+	cursor: pointer;
+	fill: #0066ff;
+}
+.loge:active {
+	cursor: pointer;
+	fill: gray;
+}
+.curved:hover {
+	stroke: #0066ff;
+}
+.curved:active {
+	stroke: gray;
+}
+
+.arc:hover {
+	stroke: #159489;
+}
+.arc:active {
+	stroke: gray;
+}
+
