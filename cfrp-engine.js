@@ -10,6 +10,7 @@ var current_season_seating_profile_min;
 var current_season_seating_profile_avg;
 
 var current_theater;
+var prev_theater;
 
 
 //UI actions
@@ -76,21 +77,12 @@ function loadSlider() {
 	});
 	current_season_days = seasonDays;
 
-	var tooltip = $('<div id="tooltip" />').css({
-		position: 'absolute',
-		top: -25,
-		left: -10
-	}).hide();
 	$("#slider").slider({
-
 		max:current_season_days.length,
-		slide: function(event, ui) {
-			tooltip.text(ui.value);
-		},
 		change: function(event,ui) {
 			dateChange(current_season_days[ui.value]);
 			$("#dayDate").val(current_season_days[ui.value]);
-		},
+		}
 
 	});
 }
@@ -125,6 +117,7 @@ function setInfos(newDate) {
 function getSeasonSeatingProfile() {
 	current_season_seating_profile_ids = new Array();
 	$.getJSON('http://api2.cfregisters.org/seating_category_profile?start_date=lte.' + current_season_min + '&end_date=gte.' + current_season_max + '&order=id.asc', function(data) {
+		prev_theater=current_theater;
 		current_theater=data[0].period;
 		$.each(data, function (i, item) {
 			current_season_seating_profile_ids.push(data[i].id);
@@ -138,7 +131,10 @@ function getSeason(newSeason) {
 	getSeasonMinMax();
 	loadSlider();
 	//setMaximum();
-	drawTheater();
+
+	if(prev_theater === current_theater) {
+		drawTheater(current_theater);
+	}
 }
 
 function setDate(date) {

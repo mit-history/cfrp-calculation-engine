@@ -1,13 +1,19 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="../styles/framework/normalize.css">
-	<link rel="stylesheet" href="../styles/framework/skeleton.css">
-	<link rel="stylesheet" href="../styles/headers.css">
-	<link rel="stylesheet" href="../styles/theaters.css">
-	<script src="../logic/jquery-3.2.1.min.js"></script>
-	<script src="../logic/d3.min.js"></script>
-	<script src="../logic/key.js" defer></script>
+	<link rel="stylesheet" href="styles/framework/normalize.css">
+	<link rel="stylesheet" href="styles/framework/skeleton.css">
+	<link rel="stylesheet" href="styles/headers.css">
+	<link rel="stylesheet" href="styles/theaters.css">
+	<link rel="stylesheet" type="text/css" href="heatmap-styles.css">
+	<script src="logic/jquery-3.2.1.min.js"></script>
+	<script src="logic/d3.min.js"></script>
+	<script src="logic/key.js" defer></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+	<script type="text/javascript" src="cfrp-engine.js"></script>
+	<script type="text/javascript" src="cfrp-init.js"></script>
 </head>
 
 <body>
@@ -19,10 +25,45 @@
 	</div>
 
 	<div class="row title">
-	  	<div class="twelve columns">
-	  		<img src="../img/cfrp-logo-top-nav.png" alt="cfrp logo" class="logo">
-	  		<h1>Comédie-Française Registers Project: Interactive Seating Charts</h1>
-	  	</div>		
+		<div class="twelve columns">
+			<img src="img/cfrp-logo-top-nav.png" alt="cfrp logo" class="logo">
+			<h1>Comédie-Française Registers Project: Interactive Seating Charts</h1>
+		</div>		
+	</div>
+
+	<div class="row heatmap-chooser">
+		<div class="three columns"> </div>
+
+		<div class="three columns">
+			<div class="season">
+				<input type="text" value="1680" id="season1"/> – <input type="text" value="1681" id="season2"/>
+			</div>
+		</div>
+		<div class="three columns">
+			<div class="slider-box">
+				<div id="slider">
+ 
+				</div>
+			</div> 
+		</div>
+		<div class="three columns">
+			<div class="date">
+				<input type="text" id="dayDate"/>
+			</div>
+		</div>
+
+
+	</div>
+
+	<div class="row heatmap-infodis">
+		<div class="three columns"> </div>
+		<div class="eight columns">
+			<img src="img/RedRibbon.png" width="200"/>
+			<div class="theater">
+			</div>
+			<div class="play"> 
+			</div>
+		</div>
 	</div>
 
 

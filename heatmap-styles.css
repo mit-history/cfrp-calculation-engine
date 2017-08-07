@@ -1,79 +1,37 @@
-* {
-	padding: 0;
-	margin: 0;
-	font-family: 'Avenir';
-}
-
-.heatmap-main {
-	width: 960px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.heatmap-chooser {
-	height: 100px;
-	width: 960px;
-	background-color: lightblue;
-}
-
-.heatmap-infodis {
-	height: 100px;
-	width: 100%;
-	background-color: blue;
-}
-
 .heatmap-chooser>div {
+	margin: 0 !important;
 	text-align: center;
-	width: 318px;
-	float: left;
-	padding-top: 40px;
+}
+
+.heatmap-infodis>div {
+	margin: 0 !important;
+	text-align: center;
 }
 
 .heatmap-chooser .season input {
 	background: transparent;
 	border: none;
-	font-size: 18pt;
-	font-family: 'Avenir';
-	font-weight: lighter;
-	color: orange;
-	width: 2.3em;
+	width: 70px;
+	font-weight: bold;
+	font-size: 14pt;
 }
 
 .heatmap-chooser .date input {
 	background: transparent;
 	border: none;
-	font-size: 18pt;
-	font-family: 'Avenir';
-	font-weight: lighter;
-	color: orange;
-	width: 5em;
+	width: 120px;
+	font-weight: bold;
+	font-size: 14pt;
 }
 
 .heatmap-chooser .season input:focus {
 	outline: none;
 }
 
-#slider {
-	padding: 0;
-}
-
-#custom-handle {
-    width: 5em;
-    height: 1.6em;
-    top: 50%;
-    margin-top: -.8em;
-    text-align: center;
-    line-height: 1.6em;
-  }
-
-
 .heatmap-infodis .theater {
-	width: 100%;
 	text-align: center;
-	color: white;
 }
 
 .heatmap-infodis .play {
 	text-align: center;
-	color: white;
 }
