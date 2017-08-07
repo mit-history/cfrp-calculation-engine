@@ -1,10 +1,10 @@
 .heatmap-chooser>div {
-	margin: 0 !important;
+	margin-left: 0 !important;
 	text-align: center;
 }
 
 .heatmap-infodis>div {
-	margin: 0 !important;
+	margin-left: 0 !important;
 	text-align: center;
 }
 
@@ -34,4 +34,11 @@
 
 .heatmap-infodis .play {
 	text-align: center;
+}
+
+.slider-box {
+	margin-left: auto;
+	margin-right: auto;
+	width: 150px;
+	margin-top: 12px;
 }
