@@ -1,5 +1,5 @@
 .heatmap-chooser>div {
-	margin-left: 0 !important;
+	margin: auto;
 	text-align: center;
 }
 
@@ -11,9 +11,16 @@
 .heatmap-chooser .season input {
 	background: transparent;
 	border: none;
-	width: 70px;
+	cursor: pointer;
+	max-width: 80px;
+	padding: 0px;
 	font-weight: bold;
-	font-size: 14pt;
+	font-size: 10pt;
+	text-align: center;
+}
+
+.heatmap-chooser .season input:hover {
+	border-bottom: 1px dashed red;
 }
 
 .heatmap-chooser .date input {
@@ -21,11 +28,15 @@
 	border: none;
 	width: 120px;
 	font-weight: bold;
-	font-size: 14pt;
+	font-size: 10pt;
 }
 
 .heatmap-chooser .season input:focus {
 	outline: none;
+}
+
+.heatmap-chooser .columns {
+	padding: 1px;
 }
 
 .heatmap-infodis .theater {

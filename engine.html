@@ -5,16 +5,16 @@
 	<link rel="stylesheet" href="styles/framework/skeleton.css">
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<link rel="stylesheet" href="styles/headers.css">
+	<link rel="stylesheet" href="styles/engine.css">
 	<link rel="stylesheet" href="styles/theaters.css">
 	<link rel="stylesheet" type="text/css" href="heatmap-styles.css">
 	<script src="logic/jquery-3.2.1.min.js"></script>
 	<script src="logic/d3.min.js"></script>
 	<script src="logic/key.js" defer></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script> -->
 	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-	<script type="text/javascript" src="cfrp-engine.js"></script>
-	<script type="text/javascript" src="cfrp-init.js"></script>
+	<script type="text/javascript" src="logic/cfrp-engine.js"></script>
+	<script type="text/javascript" src="logic/cfrp-init.js"></script>
 </head>
 
 <body>
@@ -33,25 +33,30 @@
 	</div>
 
 	<div class="row heatmap-chooser">
-		<div class="three columns"> </div>
+
+		<div class="three columns"></div>
 
 		<div class="three columns">
-			<div class="season">
-				<input type="text" value="1680" id="season1"/> – <input type="text" value="1681" id="season2"/>
-			</div>
+		<div class="season">
+			<input type="text" value="1680" id="season1"/> – <input type="text" value="1681" id="season2"/>
 		</div>
+		</div>
+
+		<div class="two columns">
+		<div class="slider-box">
+			<div id="slider"></div>
+		</div> 
+		</div>
+
 		<div class="three columns">
-			<div class="slider-box">
-				<div id="slider">
- 
-				</div>
-			</div> 
+		<div class="date">
+			<input type="text" id="dayDate"/>
 		</div>
-		<div class="three columns">
-			<div class="date">
-				<input type="text" id="dayDate"/>
-			</div>
 		</div>
+
+		<div class="one column"></div>
+
+	</div>
 
 
 	</div>
@@ -74,7 +79,7 @@
 			<div id="legend"></div>
 		</div>
 		<div class="eight columns">
-			<div id="theaters"></div>
+			<div id="heatmap"></div>
 		</div>
 		<div class="one column"></div>
 	</div>

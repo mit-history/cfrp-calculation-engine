@@ -109,10 +109,6 @@ h1 {
 	width: 100%;	
 }
 
-#theaters {
-	min-height: 65%;
-}
-
 @media (max-width: 400px) {
 
 	.logo {

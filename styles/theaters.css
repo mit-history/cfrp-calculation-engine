@@ -1,13 +1,13 @@
 
-
 #legend {
 	display: block;
 	margin: auto;
 }
 
-#theaters {
-	border: 1px solid gray;
-	height: auto;
+#heatmap {
+	border: 1px solid #ACD8CE;
+	height: 100px;
+	min-height: 65%;
 }
 
 .visualization {
