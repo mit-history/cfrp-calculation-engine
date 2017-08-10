@@ -151,14 +151,20 @@ function setDate(date) {
 		$.each(data, function (i, item) {
 			for (var j = 0; j < evening_totals.length; j++) {
 
-				if (evening_totals[j].id == data[i].seating_category_profile_id) {
-					evening_totals[j].total += data[i].recorded_total_l;
+				if (evening_totals[j].id == parseInt(data[i].seating_category_profile_id)) {
+					evening_totals[j].total += parseInt(data[i].recorded_total_l);
 					evening_totals[j].name = data[i].category;
 				}
 			}
 		});
 	});
 	
+	/*
+	Calculation
+	for (var j = 0; j < evening_totals.length; j++) {
+		evening_totals[j].total_perc = evening_totals[j].total/current_season_seating_profile_max.id[evening_totals[j].id].total;
+	}*/
+
 	heatmapFireworks(JSON.stringify(evening_totals));
 	
 }
