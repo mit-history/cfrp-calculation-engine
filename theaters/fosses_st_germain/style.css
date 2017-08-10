@@ -1,4 +1,4 @@
-	#guenegaud {
+	#stgermain {
 		border: 1px dashed black;
 		height: 85%;
 		margin: auto;
@@ -6,8 +6,8 @@
 		padding: 10px;
 		width: 75%;
 	}
-	#guenegaud::before {
-		content: 'Hôtel Guénégaud';
+	#stgermain::before {
+		content: 'Salle de la rue des Fossés-Saint-Germain-des-Près';
 		top: 5%;
 		position: absolute;
 	}

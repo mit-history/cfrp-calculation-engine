@@ -1,6 +1,6 @@
 <html>
 <head>
-	<meta charset='utf8'>
+	<meta charset='UTF-8'>
 	<script src="../jquery-3.2.1.min.js"></script>
 	<script src="../d3.min.js"></script>
 	<link rel="stylesheet" href="style.css">
@@ -15,12 +15,46 @@
 </html>
 
 <script>
-	
+
+	var pi = Math.PI;
 	var width = $('#stgermain').width();
 	var height = $('#stgermain').height();
 	var svg = d3.select("#stgermain").append("svg")
 		.attr("width", width)
 		.attr("height", height);
+
+
+	var inner_arc = d3.arc()
+		.innerRadius(Math.min(width, height) * .2)
+		.outerRadius(Math.min(width, height) * .25)
+		.startAngle(0 * (pi/180))
+		.endAngle(180 * (pi/180));
+
+	var outer_arc = d3.arc()
+		.innerRadius(Math.min(width, height) * .26)
+		.outerRadius(Math.min(width, height) * .31)
+		.startAngle(0 * (pi/180))
+		.endAngle(180 * (pi/180));
+
+	svg.append("path")
+		.attr("d", inner_arc)
+		.attr("fill", "blue")
+		.attr("transform", "translate("+(width/1.667 + 25) +","+ (height/2) +")");
+
+	svg.append("path")
+		.attr("d", outer_arc)
+		.attr("fill", "blue")
+		.attr("transform", "translate("+(width/1.667 + 25)+","+ (height/2) +")");
+
+	var inner_btm = svg.append("rect").attr("width", width * .35).attr("height", Math.min(width,height) * .05)
+		.attr("y", (height/2) + Math.min(width, height) * .2).attr("x", (width / 1.6667 - (width*.35) + 24)).attr("fill", "blue");
+	var outer_btm = svg.append("rect").attr("width", width * .35).attr("height", Math.min(width,height) * .05)
+		.attr("y", (height/2) + Math.min(width, height) * .26).attr("x", (width / 1.6667 - (width*.35) + 24)).attr("fill", "blue");
+
+	var inner_btm = svg.append("rect").attr("width", width * .35).attr("height", Math.min(width,height) * .05)
+		.attr("y", (height/2) - Math.min(width, height) * .25).attr("x", (width / 1.6667 - (width*.35) + 24)).attr("fill", "blue");
+	var outer_btm = svg.append("rect").attr("width", width * .35).attr("height", Math.min(width,height) * .05)
+		.attr("y", (height/2) - Math.min(width, height) * .31).attr("x", (width / 1.6667 - (width*.35) + 24)).attr("fill", "blue");
 
 
 </script>
