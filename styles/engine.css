@@ -6,3 +6,21 @@ input, .date, .play {
 .theater {
 	font-family: "Museo500", serif;
 }
+
+.map {
+	fill: #159489;
+}
+
+.line {
+	stroke: #159489;
+}
+
+.map:hover {
+	cursor: pointer;
+	fill: yellow;
+}
+
+.line:hover {
+	cursor: pointer;
+	stroke: yellow;
+}
