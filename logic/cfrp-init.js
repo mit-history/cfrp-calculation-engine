@@ -9,11 +9,11 @@ $("document").ready(function () {
 	seasonChange("1680-1681");
 // <<<<<<< HEAD
 // =======
-	$(".season").css("visibility","visible");
-	$("#season1").val("1680");
-	$("#season2").val("1681");
-	$("body").css("cursor","default");
-	$("body").css("opacity","1");
+$(".season").css("visibility","visible");
+$("#season1").val("1680");
+$("#season2").val("1681");
+$("body").css("cursor","default");
+$("body").css("opacity","1");
 // >>>>>>> e7a06ed236dd91b3412765c318b3648a81ac65b0
 });
 $(function () {
@@ -49,22 +49,37 @@ $(function () {
 	$("#dayDate").on("change", function (e) {
 		$("html").css("cursor", "progress");
 		if (e.originalEvent) {
-			dateChange($("#dayDate").val());
-		}
+			if(isValidDate($("#dayDate").val())) {
+				dateChange($("#dayDate").val());
 
-		var validDate=false;
-		for (var i = 0; i < current_season_days.length; i++) {
-			if (current_season_days[i] == $("#dayDate").val()) {
-				validDate = true;
+				var validDate=false;
+				for (var i = 0; i < current_season_days.length; i++) {
+					if (current_season_days[i] == $("#dayDate").val()) {
+						validDate = true;
+					}
+				}
+
+				if (!validDate) {
+					$(".play").html("<p> </p>");
+					$("#noRep").dialog();
+				}
+
+			} else {
+				alert("Date must be in the YYYY-MM-DD format");
 			}
 		}
 
-		if (!validDate) {
-			$(".play").html("<p> </p>");
-			$("#noRep").dialog();
-
-		}
+		// test if there is a performance at this date
+		
 	});
 
-	
+	function isValidDate(dateString) {
+		var regEx = /^\d{4}-\d{2}-\d{2}$/;
+		if(!dateString.match(regEx)) return false;  // Invalid format
+		var d;
+		if(!((d = new Date(dateString))|0)) return false; // Invalid date (or this could be epoch)
+		return true;
+	}
+
+
 });
