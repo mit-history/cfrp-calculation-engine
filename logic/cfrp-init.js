@@ -61,7 +61,7 @@ $(function () {
 
 				if (!validDate) {
 					$(".play").html("<p> </p>");
-					$("#noRep").dialog();
+					alert("No performance given on this evening");
 				}
 
 			} else {

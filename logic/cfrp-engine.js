@@ -85,7 +85,7 @@ function loadSlider() {
 	});
 	current_season_days = seasonDays;
 
-	$("#slider").slider({
+	/*$("#slider").slider({
 
 		max:current_season_days.length,
 		change: function(event,ui) {
@@ -93,6 +93,23 @@ function loadSlider() {
 			$("#dayDate").val(current_season_days[ui.value]);
 		}
 
+	});*/
+
+	var slider = document.getElementById('slider');
+
+	noUiSlider.create(slider, {
+		start: 0,
+		step: 1,
+		connect: true,
+		range: {
+			'min': 0,
+			'max': current_season_days.length
+		}
+	});
+
+	slider.noUiSlider.on('change', function(){
+		dateChange(current_season_days[parseInt(slider.noUiSlider.get())]);
+		$("#dayDate").val(current_season_days[parseInt(slider.noUiSlider.get())]);
 	});
 }
 
