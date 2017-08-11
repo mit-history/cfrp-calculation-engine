@@ -1,6 +1,6 @@
 
 var w = 140;
-var h = 400;
+var h = 310;
 
 var legendW = $('#legend').width()/4;
 
@@ -30,7 +30,7 @@ legend.append("stop")
 
 key.append("rect")
 	.attr("width", w - 100)
-	.attr("height", h - 100)
+	.attr("height", h - 10)
 	.style("fill", "url(#gradient)")
 	.attr("transform", "translate("+legendW+",10)");
 

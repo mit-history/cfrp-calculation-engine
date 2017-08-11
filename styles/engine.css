@@ -24,3 +24,19 @@ input, .date, .play {
 	cursor: pointer;
 	stroke: yellow;
 }
+
+#legend::before {
+	content: 'Ventes importantes';
+	float: top;
+	font-size: 10px;
+	margin-left: 25px;
+	margin-top: -10px;
+}
+
+#legend::after {
+	content: 'Ventes faibles';
+	display: block;
+	font-size: 10px;
+	margin-left: 30px;
+	margin-top: 10px;
+}
