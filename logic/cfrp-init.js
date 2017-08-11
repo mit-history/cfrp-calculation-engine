@@ -117,9 +117,9 @@ var left_top_2 = svg.append("line").attr("x1", width - (width * .7075)).attr("x2
 var right_top_1 = svg.append("line").attr("x1", width - (width * .2625)).attr("x2", width - (width * .375)).attr("y1", height - (height * .5)).attr("y2", height - (height * .73)).attr("stroke-width", width * .03).attr("class", "map guenegaud line");
 var right_top_2 = svg.append("line").attr("x1", width - (width * .2925)).attr("x2", width - (width * .395)).attr("y1", height - (height * .48)).attr("y2", height - (height * .69)).attr("stroke-width", width * .03).attr("class", "map guenegaud line");
 
-var arc1 = d3.arc().innerRadius(width * .08).outerRadius(width * .11).startAngle(-.9).endAngle(.9);
-var arc2 = d3.arc().innerRadius(width * .11).outerRadius(width * .14).startAngle(-.9).endAngle(.9);
-var arc3 = d3.arc().innerRadius(width * .14).outerRadius(width * .17).startAngle(-.9).endAngle(.9);
+var arc1 = d3.arc().innerRadius(width * .08).outerRadius(width * .11).startAngle(-.9).endAngle(.9).attr("class", "map guenegaud");
+var arc2 = d3.arc().innerRadius(width * .11).outerRadius(width * .14).startAngle(-.9).endAngle(.9).attr("class", "map guenegaud");
+var arc3 = d3.arc().innerRadius(width * .14).outerRadius(width * .17).startAngle(-.9).endAngle(.9).attr("class", "map guenegaud");
 
 svg.append("path")
     .attr("class", "arc")
