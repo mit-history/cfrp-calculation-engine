@@ -27,7 +27,7 @@ function dateChange(newDate) {
 			$("html").css("cursor", "default");
 	//setDate(newDate);
 		} else {
-			console.log("BLOQUE");
+			drawTheater(current_theater);
 		}	
 	});
 }
