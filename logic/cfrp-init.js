@@ -22,10 +22,10 @@ $(function () {
 	});
 	$("#season2").on("change", function (e) {
 		if (e.originalEvent) {
-			if(parseInt($("#season1").val()) < 1681 || isNaN(parseInt($("#season1").val()))) {
+			if(parseInt($("#season2").val()) < 1681 || isNaN(parseInt($("#season2").val()))) {
 				$("#season2").val("1681");
 			}
-			if(parseInt($("#season1").val()) > 1793) {
+			if(parseInt($("#season2").val()) > 1793) {
 				$("#season2").val("1793");
 			}
 			$("html").css("cursor", "progress");
@@ -39,5 +39,18 @@ $(function () {
 		if (e.originalEvent) {
 			dateChange($("#dayDate").val());
 		}
+
+		var validDate=false;
+		for (var i = 0; i < current_season_days.length; i++) {
+			if (current_season_days[i] == $("#dayDate").val()) {
+				validDate = true;
+			}
+		}
+
+		if (!validDate) {
+			$("#noRep").dialog();
+		}
 	});
+
+	
 });
