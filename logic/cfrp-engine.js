@@ -97,6 +97,8 @@ function loadSlider() {
 
 	var slider = document.getElementById('slider');
 
+	slider.noUiSlider.destroy();
+
 	noUiSlider.create(slider, {
 		start: 0,
 		step: 1,
