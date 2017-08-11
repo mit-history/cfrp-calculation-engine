@@ -1,5 +1,5 @@
 //gloabal variables
-var current_season="1680-1681";
+var current_season;
 var current_season_min;
 var current_season_max;
 var current_season_days;
@@ -52,7 +52,12 @@ function getSeasonMinMax() {
 function seasonFinder(newDate) {
 	var season;
 	$.getJSON('http://api2.cfregisters.org/registers?date=eq.' + newDate, function(data) {
-		season = data[0].season;
+		if (data.length > 0) {
+			season = data[0].season;
+		} else {
+			$("#noRep").dialog();
+			season = "1680-1681";
+		}
 	});
 
 	$("#season1").val(season.substr(0,4));
@@ -78,6 +83,7 @@ function loadSlider() {
 	current_season_days = seasonDays;
 
 	$("#slider").slider({
+
 		max:current_season_days.length,
 		change: function(event,ui) {
 			dateChange(current_season_days[ui.value]);
@@ -85,10 +91,6 @@ function loadSlider() {
 		}
 
 	});
-}
-
-function drawTheater() {
-	//draw a theater from a certain period
 }
 
 function renumberScales() {
@@ -126,13 +128,15 @@ function getSeasonSeatingProfile() {
 }
 
 function getSeason(newSeason) {
+	
 	getSeasonDays(newSeason);
 	getSeasonSeatingProfile();
 	getSeasonMinMax();
 	loadSlider();
 	//setMaximum();
-
-	if(prev_theater === current_theater) {
+	console.log("Cur th: " + prev_theater + " – NEw th : " + current_theater);
+	if(prev_theater != current_theater) {
+		console.log("Works !");
 		drawTheater(current_theater);
 	}
 }
