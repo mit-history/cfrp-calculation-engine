@@ -1,8 +1,17 @@
 $.ajaxSetup({
 	async: false
 });
+
+
+
 $("document").ready(function () {
+	$("body").css("cursor","progress");
 	seasonChange("1680-1681");
+	$(".season").css("visibility","visible");
+	$("#season1").val("1680");
+	$("#season2").val("1681");
+	$("body").css("cursor","default");
+	$("body").css("opacity","1");
 });
 $(function () {
 	getSeasonMinMax('1680-1681');
@@ -48,7 +57,9 @@ $(function () {
 		}
 
 		if (!validDate) {
+			$(".play").html("<p> </p>");
 			$("#noRep").dialog();
+
 		}
 	});
 

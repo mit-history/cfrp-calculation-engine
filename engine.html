@@ -11,13 +11,12 @@
 	<script src="logic/jquery-3.2.1.min.js"></script>
 	<script src="logic/d3.min.js"></script>
 	<script src="logic/key.js" defer></script>
-	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="logic/cfrp-engine.js"></script>
 	<script type="text/javascript" src="logic/cfrp-init.js"></script>
 </head>
 
-<body>
-
+<body style="opacity: 0.5;">
 	<div class="row topbar">
 		<div class="twelve columns topbar-overlay"></div>
 		<div class="buttons info">about</div>
@@ -36,8 +35,8 @@
 		<div class="three columns"></div>
 
 		<div class="three columns">
-		<div class="season">
-			<input type="text" value="1680" id="season1"/> – <input type="text" value="1681" id="season2"/>
+		<div class="season" style="visibility: hidden;">
+			<input type="text" id="season1"/> – <input type="text" id="season2"/>
 		</div>
 		</div>
 
@@ -90,8 +89,8 @@
 
 </body>
 
-<div id="noRep" title="Pas de spectacle">
-	<p>Pas de représentation ce soir-là.</p>
+<div id="noRep" title="Pas de spectacle" style="display:hidden;">
+	<p>No show on this day.</p>
 </div>
 
 </html>
