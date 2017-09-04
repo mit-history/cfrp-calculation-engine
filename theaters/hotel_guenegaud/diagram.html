@@ -71,35 +71,104 @@
 		.attr("width", width)
 		.attr("height", height);
 
-	var arc_3r = d3.arc()
-		.innerRadius(measure * .27)
-		.outerRadius(measure * .3)
-		.startAngle(.09 * Math.PI)
-		.endAngle(.91 * Math.PI);
-	diagram.append("path")
-		.attr("class", "boxes")
-		.attr("d", arc_3r)
-		.attr("transform", "translate(" + width * .65 + "," + height / 2 + ")");
+	// var arc_3r = d3.arc()
+	// 	.innerRadius(measure * .27)
+	// 	.outerRadius(measure * .3)
+	// 	.startAngle(.09 * Math.PI)
+	// 	.endAngle(.91 * Math.PI);
+	// diagram.append("path")
+	// 	.attr("class", "boxes")
+	// 	.attr("d", arc_3r)
+	// 	.attr("transform", "translate(" + width * .65 + "," + height / 2 + ")");
 
-	var arc_2r = d3.arc()
-		.innerRadius(measure * .23)
-		.outerRadius(measure * .26)
-		.startAngle(.12 * Math.PI)
-		.endAngle(.88 * Math.PI);
-	diagram.append("path")
-		.attr("class", "boxes")
-		.attr("d", arc_2r)
-		.attr("transform", "translate(" + width * .65 + "," + height / 2 + ")");
+	// var arc_2r = d3.arc()
+	// 	.innerRadius(measure * .23)
+	// 	.outerRadius(measure * .26)
+	// 	.startAngle(.12 * Math.PI)
+	// 	.endAngle(.88 * Math.PI);
+	// diagram.append("path")
+	// 	.attr("class", "boxes")
+	// 	.attr("d", arc_2r)
+	// 	.attr("transform", "translate(" + width * .65 + "," + height / 2 + ")");
 
-	var arc_1r = d3.arc()
-		.innerRadius(measure * .19)
-		.outerRadius(measure * .22)
-		.startAngle(.15 * Math.PI)
-		.endAngle(.85 * Math.PI);
-	diagram.append("path")
-		.attr("class", "boxes")
-		.attr("d", arc_1r)
-		.attr("transform", "translate(" + width * .65 + "," + height / 2 + ")");
+	// var arc_1r = d3.arc()
+	// 	.innerRadius(measure * .19)
+	// 	.outerRadius(measure * .22)
+	// 	.startAngle(.15 * Math.PI)
+	// 	.endAngle(.85 * Math.PI);
+	// diagram.append("path")
+	// 	.attr("class", "boxes")
+	// 	.attr("d", arc_1r)
+	// 	.attr("transform", "translate(" + width * .65 + "," + height / 2 + ")");
+
+	var arc3v = diagram.append("line")
+		.attr("x1", width * .8)
+		.attr("y1", height / 2 - (measure * .16))
+		.attr("x2", width * .8)
+		.attr("y2", height / 2 + (measure * .16))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+	var arc2v = diagram.append("line")
+		.attr("x1", width * .77)
+		.attr("y1", height / 2 - (measure * .15))
+		.attr("x2", width * .77)
+		.attr("y2", height / 2 + (measure * .15))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+	var arc1v = diagram.append("line")
+		.attr("x1", width * .74)
+		.attr("y1", height / 2 - (measure * .14))
+		.attr("x2", width * .74)
+		.attr("y2", height / 2 + (measure * .14))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+
+	var arc3v_t = diagram.append("line")
+		.attr("x1", width * .73)
+		.attr("y1", height / 2 - (measure * .25))
+		.attr("x2", width * .8)
+		.attr("y2", height / 2 - (measure * .15))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+	var arc2v_t = diagram.append("line")
+		.attr("x1", width * .715)
+		.attr("y1", height / 2 - (measure * .22))
+		.attr("x2", width * .77)
+		.attr("y2", height / 2 - (measure * .14))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+	var arc1v_t = diagram.append("line")
+		.attr("x1", width * .7)
+		.attr("y1", height / 2 - (measure * .19))
+		.attr("x2", width * .74)
+		.attr("y2", height / 2 - (measure * .13))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+
+	var arc3v_b = diagram.append("line")
+		.attr("x1", width * .73)
+		.attr("y1", height / 2 + (measure * .25))
+		.attr("x2", width * .8)
+		.attr("y2", height / 2 + (measure * .15))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+	var arc2v_b = diagram.append("line")
+		.attr("x1", width * .715)
+		.attr("y1", height / 2 + (measure * .22))
+		.attr("x2", width * .77)
+		.attr("y2", height / 2 + (measure * .14))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+	var arc1v_b = diagram.append("line")
+		.attr("x1", width * .7)
+		.attr("y1", height / 2 + (measure * .19))
+		.attr("x2", width * .74)
+		.attr("y2", height / 2 + (measure * .13))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+
+
+
 
 	var corner_2rt = diagram.append("line")
 		.attr("x1", width * .57)
@@ -207,9 +276,9 @@
 
 	var ampitheater_r6 = diagram.append("line")
 		.attr("x1", width *  .68)
-		.attr("y1", height / 2 - (measure / 6))
+		.attr("y1", height / 2 - (measure / 7))
 		.attr("x2", width *  .68)
-		.attr("y2", height / 2 + (measure / 6))
+		.attr("y2", height / 2 + (measure / 7))
 		.attr("class", "boxes line")
 		.attr("stroke-width", measure * .03);
 
