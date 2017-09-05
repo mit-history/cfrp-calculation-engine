@@ -1,87 +1,127 @@
 <html>
 <head>
-	<meta charset='UTF-8'>
-	<script src="../jquery-3.2.1.min.js"></script>
-	<script src="../d3.min.js"></script>
-	<link rel="stylesheet" href="style.css">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../../styles/fonts.css">
+	<script src="../../logic/jquery-3.2.1.min.js"></script>
+	<script src="../../logic/d3.min.js"></script>
 </head>
 
 <body>
 	
-	<div id="stgermain"></div>
+	<div id="diagram"></div>
 
 </body>
 
 </html>
 
+<style>
+	
+	body {
+		background-color: #FFFFFF;
+		font-family: 'MuseoSans300';
+	}
+
+	#diagram {
+		border: 1px solid #DFDFDF;
+		display: block;
+		margin: auto;
+		margin-top: 5%;
+		min-height: 500px;
+		width: 75%;
+	}
+
+	#diagram::before {
+		color: #CCCCCC;
+		content: 'Palais des Tuileries';
+		position: absolute;
+	}
+
+	.boxes {
+		fill: #159489;
+	}
+	.boxes:hover {
+		cursor: pointer;
+		fill: gold;
+	}
+
+	.line {
+		stroke: #159489;
+	}
+	.line:hover {
+		stroke: gold;
+	}
+
+</style>
+
+
 <script>
 
 	var pi = Math.PI;
-	var width = $('#stgermain').width();
-	var height = $('#stgermain').height();
-	var svg = d3.select("#stgermain").append("svg")
+	var width = $('#diagram').width();
+	var height = $('#diagram').height();
+	var svg = d3.select("#diagram").append("svg")
 		.attr("width", width)
 		.attr("height", height);
 
 
 	var inner_arc = d3.arc()
-		.innerRadius(Math.min(width, height) * .2)
-		.outerRadius(Math.min(width, height) * .25)
+		.innerRadius(Math.min(width, height) * .24)
+		.outerRadius(Math.min(width, height) * .27)
 		.startAngle(0 * (pi/180))
 		.endAngle(180 * (pi/180));
 
 	var outer_arc = d3.arc()
-		.innerRadius(Math.min(width, height) * .26)
+		.innerRadius(Math.min(width, height) * .28)
 		.outerRadius(Math.min(width, height) * .31)
 		.startAngle(0 * (pi/180))
 		.endAngle(180 * (pi/180));
 
 	svg.append("path")
 		.attr("d", inner_arc)
-		.attr("fill", "blue")
+		
 		.attr("transform", "translate("+(width/1.667 + 25) +","+ (height/2) +")");
 
 	svg.append("path")
 		.attr("d", outer_arc)
-		.attr("fill", "blue")
+		
 		.attr("transform", "translate("+(width/1.667 + 25)+","+ (height/2) +")");
 
-	var inner_btm = svg.append("rect").attr("width", width * .35).attr("height", Math.min(width,height) * .05)
-		.attr("y", (height/2) + Math.min(width, height) * .2).attr("x", (width / 1.6667 - (width*.35) + 24)).attr("fill", "blue");
-	var outer_btm = svg.append("rect").attr("width", width * .35).attr("height", Math.min(width,height) * .05)
-		.attr("y", (height/2) + Math.min(width, height) * .26).attr("x", (width / 1.6667 - (width*.35) + 24)).attr("fill", "blue");
+	var inner_btm = svg.append("rect").attr("width", width * .35).attr("height", Math.min(width,height) * .03)
+		.attr("y", (height/2) + Math.min(width, height) * .2).attr("x", (width / 1.6667 - (width*.35) + 24));
+	var outer_btm = svg.append("rect").attr("width", width * .35).attr("height", Math.min(width,height) * .03)
+		.attr("y", (height/2) + Math.min(width, height) * .28).attr("x", (width / 1.6667 - (width*.35) + 24));
 
-	var inner_btm = svg.append("rect").attr("width", width * .35).attr("height", Math.min(width,height) * .05)
-		.attr("y", (height/2) - Math.min(width, height) * .25).attr("x", (width / 1.6667 - (width*.35) + 24)).attr("fill", "blue");
-	var outer_btm = svg.append("rect").attr("width", width * .35).attr("height", Math.min(width,height) * .05)
-		.attr("y", (height/2) - Math.min(width, height) * .31).attr("x", (width / 1.6667 - (width*.35) + 24)).attr("fill", "blue");
+	var inner_btm = svg.append("rect").attr("width", width * .35).attr("height", Math.min(width,height) * .03)
+		.attr("y", (height/2) - Math.min(width, height) * .25).attr("x", (width / 1.6667 - (width*.35) + 24));
+	var outer_btm = svg.append("rect").attr("width", width * .35).attr("height", Math.min(width,height) * .03)
+		.attr("y", (height/2) - Math.min(width, height) * .31).attr("x", (width / 1.6667 - (width*.35) + 24));
 
 	var firsts_1 = svg.append("rect").attr("width", width * .01).attr("height", Math.min(width,height) * .3)
-		.attr("y", (height/2) - Math.min(width, height) * .15).attr("x", (width / 1.6667 - (width*.35) + 24)).attr("fill", "blue");
+		.attr("y", (height/2) - Math.min(width, height) * .15).attr("x", (width / 1.6667 - (width*.35) + 24));
 	var firsts_2 = svg.append("rect").attr("width", width * .01).attr("height", Math.min(width,height) * .3)
-		.attr("y", (height/2) - Math.min(width, height) * .15).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015))).attr("fill", "blue");
+		.attr("y", (height/2) - Math.min(width, height) * .15).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015)));
 	var firsts_3 = svg.append("rect").attr("width", width * .01).attr("height", Math.min(width,height) * .3)
-		.attr("y", (height/2) - Math.min(width, height) * .15).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015)).attr("fill", "blue");
+		.attr("y", (height/2) - Math.min(width, height) * .15).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015));
 
 	var parterre = svg.append("rect").attr("width", width * .2).attr("height", Math.min(width,height) * .3)
-		.attr("y", (height/2) - Math.min(width, height) * .15).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015)).attr("fill", "blue");
+		.attr("y", (height/2) - Math.min(width, height) * .15).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015));
 
 	var amp_1 = svg.append("rect").attr("width", width * .02).attr("height", Math.min(width,height) * .3)
-		.attr("y", (height/2) - Math.min(width, height) * .15).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015 + width * .205)).attr("fill", "blue");
+		.attr("y", (height/2) - Math.min(width, height) * .15).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015 + width * .205));
 	var amp_2 = svg.append("rect").attr("width", width * .02).attr("height", Math.min(width,height) * .3)
-		.attr("y", (height/2) - Math.min(width, height) * .15).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015 + width * .23)).attr("fill", "blue");
+		.attr("y", (height/2) - Math.min(width, height) * .15).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015 + width * .23));
 	var amp_3 = svg.append("rect").attr("width", width * .02).attr("height", Math.min(width,height) * .3)
-		.attr("y", (height/2) - Math.min(width, height) * .15).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015 + width * .255)).attr("fill", "blue");
+		.attr("y", (height/2) - Math.min(width, height) * .15).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015 + width * .255));
 	var amp_4 = svg.append("rect").attr("width", width * .02).attr("height", Math.min(width,height) * .3)
-		.attr("y", (height/2) - Math.min(width, height) * .15).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015 + width * .28)).attr("fill", "blue");
+		.attr("y", (height/2) - Math.min(width, height) * .15).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015 + width * .28));
 	var amp_5 = svg.append("rect").attr("width", width * .02).attr("height", Math.min(width,height) * .25)
-		.attr("y", (height/2) - Math.min(width, height) * .125).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015 + width * .305)).attr("fill", "blue");
+		.attr("y", (height/2) - Math.min(width, height) * .125).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015 + width * .305));
 	var amp_6 = svg.append("rect").attr("width", width * .02).attr("height", Math.min(width,height) * .25)
-		.attr("y", (height/2) - Math.min(width, height) * .125).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015 + width * .33)).attr("fill", "blue");
+		.attr("y", (height/2) - Math.min(width, height) * .125).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015 + width * .33));
 	var amp_7 = svg.append("rect").attr("width", width * .02).attr("height", Math.min(width,height) * .25)
-		.attr("y", (height/2) - Math.min(width, height) * .125).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015 + width * .355)).attr("fill", "blue");
+		.attr("y", (height/2) - Math.min(width, height) * .125).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015 + width * .355));
 	var amp_8 = svg.append("rect").attr("width", width * .02).attr("height", Math.min(width,height) * .2)
-		.attr("y", (height/2) - Math.min(width, height) * .1).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015 + width * .38)).attr("fill", "blue");
+		.attr("y", (height/2) - Math.min(width, height) * .1).attr("x", (width / 1.6667 - (width*.35) + (24 + width * .015) + width * .015 + width * .015 + width * .38));
 
 
 </script>
