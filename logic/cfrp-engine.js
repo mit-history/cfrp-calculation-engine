@@ -18,15 +18,17 @@ var prev_theater;
 function dateChange(newDate) {
 	$.getJSON('http://api2.cfregisters.org/registers?date=eq.' + newDate, function(data) {
 		if (data.length > 0) {
-			season = data[0].season;
+			
 			if (newDate < current_season_min || newDate > current_season_max) {
 				seasonChange(seasonFinder(newDate));
 			}
 			setInfos(newDate);
 			setDate(newDate);
+
 			$("html").css("cursor", "default");
-	//setDate(newDate);
 		} else {
+			$(".play").html("<p> </p>");
+			alert("No performance given on this evening");
 			drawTheater(current_theater);
 		}	
 	});
@@ -97,7 +99,9 @@ function loadSlider() {
 
 	var slider = document.getElementById('slider');
 
-	slider.noUiSlider.destroy();
+	try {
+		slider.noUiSlider.destroy();
+	} catch(err) {}
 
 	noUiSlider.create(slider, {
 		start: 0,
@@ -105,13 +109,15 @@ function loadSlider() {
 		connect: true,
 		range: {
 			'min': 0,
-			'max': current_season_days.length
+			'max': current_season_days.length-1
 		}
 	});
 
 	slider.noUiSlider.on('change', function(){
+		theLoad();
 		dateChange(current_season_days[parseInt(slider.noUiSlider.get())]);
 		$("#dayDate").val(current_season_days[parseInt(slider.noUiSlider.get())]);
+		theUnload();
 	});
 }
 

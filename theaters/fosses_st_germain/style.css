@@ -1,0 +1,13 @@
+	#stgermain {
+		border: 1px dashed black;
+		height: 85%;
+		margin: auto;
+		margin-top: 5%;
+		padding: 10px;
+		width: 75%;
+	}
+	#stgermain::before {
+		content: 'Salle de la rue des Fossés-Saint-Germain-des-Près';
+		top: 5%;
+		position: absolute;
+	}
