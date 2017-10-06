@@ -1,0 +1,164 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../../styles/fonts.css">
+	<script src="../../logic/jquery-3.2.1.min.js"></script>
+	<script src="../../logic/d3.min.js"></script>
+</head>
+
+<body>
+	
+	<div id="diagram"></div>
+
+</body>
+
+</html>
+
+<style>
+	
+	body {
+		background-color: #FFFFFF;
+		font-family: 'MuseoSans300';
+	}
+
+	#diagram {
+		border: 1px solid #DFDFDF;
+		display: block;
+		margin: auto;
+		margin-top: 5%;
+		min-height: 500px;
+		width: 75%;
+	}
+
+	#diagram::before {
+		color: #CCCCCC;
+		content: 'Théâtre de l’Odéon';
+		position: absolute;
+	}
+
+	.boxes {
+		fill: #159489;
+	}
+	.boxes:hover {
+		cursor: pointer;
+		fill: gold;
+	}
+
+	.line {
+		stroke: #159489;
+		fill: #159489;
+		stroke-width: 0px;
+	}
+	.line:hover {
+		stroke: gold;
+		fill: gold;
+	}
+
+</style>
+
+
+<script>
+
+	var width = $('#diagram').width();
+	var height = $('#diagram').height();	
+	var measure = Math.min(width, height);
+
+	$(window).resize(function(){
+		width = $('#diagram').width();
+		height = $('#diagram').height();	
+		measure = Math.min(width, height);
+	});
+
+
+	var diagram = d3.select('#diagram').append('svg')
+		.attr("width", width)
+		.attr("height", height);
+
+	var arc_3r = d3.arc()
+		.innerRadius(measure * .37)
+		.outerRadius(measure * .34)
+		.startAngle(1 * Math.PI)
+		.endAngle(0 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", arc_3r)
+		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
+
+	var arc_2r = d3.arc()
+		.innerRadius(measure * .33)
+		.outerRadius(measure * .3)
+		.startAngle(1 * Math.PI)
+		.endAngle(0 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", arc_2r)
+		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
+	
+	var arc_1r = d3.arc()
+		.innerRadius(measure * .29)
+		.outerRadius(measure * .26)
+		.startAngle(1 * Math.PI)
+		.endAngle(0 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", arc_1r)
+		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
+
+	var parterre = d3.arc()
+		.innerRadius(measure * .24)
+		.outerRadius(0)
+		.startAngle(1 * Math.PI)
+		.endAngle(0 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", parterre)
+		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
+	var parterre2 = diagram.append("rect")
+		.attr("x", (width * .5) - 124)
+		.attr("y",  (height * .5) - (measure * .24))
+		.attr("width", 125)
+		.attr("height", (measure * .48))
+		.attr("class", "boxes line");
+
+	var rect3t = diagram.append("rect")
+		.attr("x", (width * .5) - 124)
+		.attr("y",  (height * .5) - (measure * .37))
+		.attr("width", 125)
+		.attr("height", (measure * .03))
+		.attr("class", "boxes line");
+	var rect2t = diagram.append("rect")
+		.attr("x", (width * .5) - 124)
+		.attr("y",  (height * .5) - (measure * .33))
+		.attr("width", 125)
+		.attr("height", (measure * .03))
+		.attr("class", "boxes line");
+	var rect1t = diagram.append("rect")
+		.attr("x", (width * .5) - 124)
+		.attr("y",  (height * .5) - (measure * .29))
+		.attr("width", 125)
+		.attr("height", (measure * .03))
+		.attr("class", "boxes line");
+
+	var rect1b = diagram.append("rect")
+		.attr("x", (width * .5) - 124)
+		.attr("y",  (height * .5) + (measure * .26))
+		.attr("width", 125)
+		.attr("height", (measure * .03))
+		.attr("class", "boxes line");
+	var rect2b = diagram.append("rect")
+		.attr("x", (width * .5) - 124)
+		.attr("y",  (height * .5) + (measure * .30))
+		.attr("width", 125)
+		.attr("height", (measure * .03))
+		.attr("class", "boxes line");
+	var rect3b = diagram.append("rect")
+		.attr("x", (width * .5) - 124)
+		.attr("y",  (height * .5) + (measure * .34))
+		.attr("width", 125)
+		.attr("height", (measure * .03))
+		.attr("class", "boxes line");
+
+
+
+
+</script>

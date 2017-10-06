@@ -1,0 +1,444 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../../styles/fonts.css">
+	<script src="../../logic/jquery-3.2.1.min.js"></script>
+	<script src="../../logic/d3.min.js"></script>
+</head>
+
+<body>
+	
+	<div id="diagram"></div>
+
+</body>
+
+</html>
+
+<style>
+	
+	body {
+		background-color: #FFFFFF;
+		font-family: 'MuseoSans300';
+	}
+
+	#diagram {
+		border: 1px solid #DFDFDF;
+		display: block;
+		margin: auto;
+		margin-top: 5%;
+		min-height: 500px;
+		width: 75%;
+	}
+
+	#diagram::before {
+		color: #CCCCCC;
+		content: 'Palais des Tuileries';
+		position: absolute;
+	}
+
+	.boxes {
+		fill: #159489;
+	}
+	.boxes:hover {
+		cursor: pointer;
+		fill: gold;
+	}
+
+	.line {
+		stroke: #159489;
+	}
+	.line:hover {
+		stroke: gold;
+	}
+
+</style>
+
+
+<script>
+	
+	var width = $('#diagram').width();
+	var height = $('#diagram').height();	
+	var measure = Math.min(width, height);
+
+	$(window).resize(function(){
+		width = $('#diagram').width();
+		height = $('#diagram').height();	
+		measure = Math.min(width, height);
+	});
+
+
+	var diagram = d3.select('#diagram').append('svg')
+		.attr("width", width)
+		.attr("height", height);
+
+	var arc_6r = d3.arc()
+		.innerRadius(measure * .43)
+		.outerRadius(measure * .4)
+		.startAngle(.1 * Math.PI)
+		.endAngle(.9 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", arc_6r)
+		.attr("transform", "translate(" + width * .56 + "," + height / 2 + ")");
+
+	var arc_5r = d3.arc()
+		.innerRadius(measure * .39)
+		.outerRadius(measure * .36)
+		.startAngle(.09 * Math.PI)
+		.endAngle(.91 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", arc_5r)
+		.attr("transform", "translate(" + width * .56 + "," + height / 2 + ")");
+
+	var arc_4r = d3.arc()
+		.innerRadius(measure * .35)
+		.outerRadius(measure * .32)
+		.startAngle(.08 * Math.PI)
+		.endAngle(.92 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", arc_4r)
+		.attr("transform", "translate(" + width * .56 + "," + height / 2 + ")");
+
+	var arc_3r = d3.arc()
+		.innerRadius(measure * .31)
+		.outerRadius(measure * .28)
+		.startAngle(.07 * Math.PI)
+		.endAngle(.93 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", arc_3r)
+		.attr("transform", "translate(" + width * .56 + "," + height / 2 + ")");
+
+	var arc_2r = d3.arc()
+		.innerRadius(measure * .27)
+		.outerRadius(measure * .24)
+		.startAngle(.06 * Math.PI)
+		.endAngle(.94 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", arc_2r)
+		.attr("transform", "translate(" + width * .56 + "," + height / 2 + ")");
+
+	var arc_1r = d3.arc()
+		.innerRadius(measure * .23)
+		.outerRadius(measure * .2)
+		.startAngle(1 * Math.PI)
+		.endAngle(0 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", arc_1r)
+		.attr("transform", "translate(" + width * .525 + "," + height / 2 + ")");
+
+	var arc_0r = d3.arc()
+		.innerRadius(measure * .19)
+		.outerRadius(measure * .16)
+		.startAngle(1.075 * Math.PI)
+		.endAngle(-.075 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", arc_0r)
+		.attr("transform", "translate(" + width * .525 + "," + height / 2 + ")");
+
+
+	var cxt_2t = diagram.append("line")
+		.attr("x1", width * .525)
+		.attr("y1", height / 2 - (measure / 3))
+		.attr("x2", width * .525)
+		.attr("y2", height / 2 - (measure / 5))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+
+	var cxt_2b = diagram.append("line")
+		.attr("x1", width * .525)
+		.attr("y1", height / 2 + (measure / 3))
+		.attr("x2", width * .525)
+		.attr("y2", height / 2 + (measure / 5))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+
+
+	var cxt_1t = diagram.append("line")
+		.attr("x1", width * .495)
+		.attr("y1", height / 2 - (measure / 3.33))
+		.attr("x2", width * .495)
+		.attr("y2", height / 2 - (measure / 6.45))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+
+	var cxt_1b = diagram.append("line")
+		.attr("x1", width * .495)
+		.attr("y1", height / 2 + (measure / 3.33))
+		.attr("x2", width * .495)
+		.attr("y2", height / 2 + (measure / 6.45))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+
+
+	var border_2t = diagram.append("line")
+		.attr("x1", width * .535)
+		.attr("y1", height / 2 - (measure / 3))
+		.attr("x2", width * .2)
+		.attr("y2", height / 2 - (measure / 3))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+
+	var border_2b = diagram.append("line")
+		.attr("x1", width * .535)
+		.attr("y1", height / 2 + (measure / 3))
+		.attr("x2", width * .2)
+		.attr("y2", height / 2 + (measure / 3))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+
+	var border_1t = diagram.append("line")
+		.attr("x1", width * .505)
+		.attr("y1", height / 2 - (measure / 3.5))
+		.attr("x2", width * .2)
+		.attr("y2", height / 2 - (measure / 3.5))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+
+	var border_1b = diagram.append("line")
+		.attr("x1", width * .505)
+		.attr("y1", height / 2 + (measure / 3.5))
+		.attr("x2", width * .2)
+		.attr("y2", height / 2 + (measure / 3.5))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+
+	var arcseats_4t = diagram.append("line")
+		.attr("x1", width * .58)
+		.attr("y1", height / 2 + (measure * .1))
+		.attr("x2", width * .58)
+		.attr("y2", height / 2 - (measure * .1))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+	var arcseats_3t = diagram.append("line")
+		.attr("x1", width * .55)
+		.attr("y1", height / 2 + (measure * .1))
+		.attr("x2", width * .55)
+		.attr("y2", height / 2 - (measure * .1))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+	var arcseats_2t = diagram.append("line")
+		.attr("x1", width * .52)
+		.attr("y1", height / 2 + (measure * .1))
+		.attr("x2", width * .52)
+		.attr("y2", height / 2 - (measure * .1))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+	var arcseats_1t = diagram.append("line")
+		.attr("x1", width * .49)
+		.attr("y1", height / 2 + (measure * .1))
+		.attr("x2", width * .49)
+		.attr("y2", height / 2 - (measure * .1))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+
+	var frontseats7 = diagram.append("line")
+		.attr("x1", width * .46)
+		.attr("y1", height / 2 + (measure * .25))
+		.attr("x2", width * .46)
+		.attr("y2", height / 2 - (measure * .25))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+	var frontseats6 = diagram.append("line")
+		.attr("x1", width * .43)
+		.attr("y1", height / 2 + (measure * .25))
+		.attr("x2", width * .43)
+		.attr("y2", height / 2 - (measure * .25))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+	var frontseats5 = diagram.append("line")
+		.attr("x1", width * .4)
+		.attr("y1", height / 2 + (measure * .25))
+		.attr("x2", width * .4)
+		.attr("y2", height / 2 - (measure * .25))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+	var frontseats4 = diagram.append("line")
+		.attr("x1", width * .37)
+		.attr("y1", height / 2 + (measure * .25))
+		.attr("x2", width * .37)
+		.attr("y2", height / 2 - (measure * .25))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+	var frontseats3 = diagram.append("line")
+		.attr("x1", width * .34)
+		.attr("y1", height / 2 + (measure * .25))
+		.attr("x2", width * .34)
+		.attr("y2", height / 2 - (measure * .25))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+	var frontseats2 = diagram.append("line")
+		.attr("x1", width * .31)
+		.attr("y1", height / 2 + (measure * .25))
+		.attr("x2", width * .31)
+		.attr("y2", height / 2 - (measure * .25))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+	var frontseats1 = diagram.append("line")
+		.attr("x1", width * .28)
+		.attr("y1", height / 2 + (measure * .25))
+		.attr("x2", width * .28)
+		.attr("y2", height / 2 - (measure * .25))
+		.attr("class", "boxes line")
+		.attr("stroke-width", measure * .03);
+
+
+
+	// var corner_2rt = diagram.append("line")
+	// 	.attr("x1", width * .57)
+	// 	.attr("y1", height / 2 - (measure / 3.33))
+	// 	.attr("x2", width * .67)
+	// 	.attr("y2", height / 2 - (measure / 3.66))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var corner_1rt = diagram.append("line")
+	// 	.attr("x1", width * .57)
+	// 	.attr("y1", height / 2 - (measure / 3.33) + (measure * .04))
+	// 	.attr("x2", width * .67)
+	// 	.attr("y2", height / 2 - (measure / 3.66) + (measure * .04))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var corner_1rb = diagram.append("line")
+	// 	.attr("x1", width * .57)
+	// 	.attr("y1", height / 2 + (measure / 3.33) - (measure * .04))
+	// 	.attr("x2", width * .67)
+	// 	.attr("y2", height / 2 + (measure / 3.66) - (measure * .04))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var corner_2rb = diagram.append("line")
+	// 	.attr("x1", width * .57)
+	// 	.attr("y1", height / 2 + (measure / 3.33))
+	// 	.attr("x2", width * .67)
+	// 	.attr("y2", height / 2 + (measure / 3.66))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var box_2rt = diagram.append("line")
+	// 	.attr("x1", width * .5725)
+	// 	.attr("y1", height / 2 - (measure / 3.33) + (measure * .04))
+	// 	.attr("x2", width * .17)
+	// 	.attr("y2", height / 2 - (measure / 3.33) + (measure * .04))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var box_1rt = diagram.append("line")
+	// 	.attr("x1", width * .5725)
+	// 	.attr("y1", height / 2 - (measure / 2.95) + (measure * .04))
+	// 	.attr("x2", width * .17)
+	// 	.attr("y2", height / 2 - (measure / 2.95) + (measure * .04))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var box_1rb = diagram.append("line")
+	// 	.attr("x1", width * .5725)
+	// 	.attr("y1", height / 2 + (measure / 3.33) - (measure * .04))
+	// 	.attr("x2", width * .17)
+	// 	.attr("y2", height / 2 + (measure / 3.33) - (measure * .04))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var box_2rb = diagram.append("line")
+	// 	.attr("x1", width * .5725)
+	// 	.attr("y1", height / 2 + (measure / 2.95) - (measure * .04))
+	// 	.attr("x2", width * .17)
+	// 	.attr("y2", height / 2 + (measure / 2.95) - (measure * .04))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var box_floor_2t = diagram.append("line")
+	// 	.attr("x1", width * .5)
+	// 	.attr("y1", height / 2 - (measure / 3.81) + (measure * .04))
+	// 	.attr("x2", width * .17)
+	// 	.attr("y2", height / 2 - (measure / 3.81) + (measure * .04))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var box_floor_1t = diagram.append("line")
+	// 	.attr("x1", width * .5)
+	// 	.attr("y1", height / 2 - (measure / 4.45) + (measure * .04))
+	// 	.attr("x2", width * .17)
+	// 	.attr("y2", height / 2 - (measure / 4.45) + (measure * .04))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var box_floor_1b = diagram.append("line")
+	// 	.attr("x1", width * .5)
+	// 	.attr("y1", height / 2 + (measure / 3.81) - (measure * .04))
+	// 	.attr("x2", width * .17)
+	// 	.attr("y2", height / 2 + (measure / 3.81) - (measure * .04))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var box_floor_2b = diagram.append("line")
+	// 	.attr("x1", width * .5)
+	// 	.attr("y1", height / 2 + (measure / 4.45) - (measure * .04))
+	// 	.attr("x2", width * .17)
+	// 	.attr("y2", height / 2 + (measure / 4.45) - (measure * .04))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var floor_vertical = diagram.append("line")
+	// 	.attr("x1", width *  .4915)
+	// 	.attr("y1", height / 2 - (measure / 4.05))
+	// 	.attr("x2", width * .4915)
+	// 	.attr("y2", height / 2 + (measure / 4.05))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var ampitheater_r6 = diagram.append("line")
+	// 	.attr("x1", width *  .68)
+	// 	.attr("y1", height / 2 - (measure / 7))
+	// 	.attr("x2", width *  .68)
+	// 	.attr("y2", height / 2 + (measure / 7))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var ampitheater_r5 = diagram.append("line")
+	// 	.attr("x1", width *  .65)
+	// 	.attr("y1", height / 2 - (measure / 6))
+	// 	.attr("x2", width *  .65)
+	// 	.attr("y2", height / 2 + (measure / 6))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var ampitheater_r4 = diagram.append("line")
+	// 	.attr("x1", width *  .62)
+	// 	.attr("y1", height / 2 - (measure / 6))
+	// 	.attr("x2", width *  .62)
+	// 	.attr("y2", height / 2 + (measure / 6))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var ampitheater_r3 = diagram.append("line")
+	// 	.attr("x1", width *  .59)
+	// 	.attr("y1", height / 2 - (measure / 6))
+	// 	.attr("x2", width * .59)
+	// 	.attr("y2", height / 2 + (measure / 6))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var ampitheater_r2 = diagram.append("line")
+	// 	.attr("x1", width *  .56)
+	// 	.attr("y1", height / 2 - (measure / 6))
+	// 	.attr("x2", width * .56)
+	// 	.attr("y2", height / 2 + (measure / 6))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+	// var ampitheater_r1 = diagram.append("line")
+	// 	.attr("x1", width *  .53)
+	// 	.attr("y1", height / 2 - (measure / 6))
+	// 	.attr("x2", width * .53)
+	// 	.attr("y2", height / 2 + (measure / 6))
+	// 	.attr("class", "boxes line")
+	// 	.attr("stroke-width", measure * .03);
+
+</script>
