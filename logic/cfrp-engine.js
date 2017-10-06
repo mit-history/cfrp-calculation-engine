@@ -4,10 +4,7 @@ var current_season_min;
 var current_season_max;
 var current_season_days;
 
-var current_season_seating_profile_ids;
-var current_season_seating_profile_max;
-var current_season_seating_profile_min;
-var current_season_seating_profile_avg;
+var current_season_seating_figures;
 
 var current_theater = 'Odéon';
 var prev_theater;
@@ -55,7 +52,14 @@ function getSeasonDays(newSeason) {
 }
 
 function getSeasonMinMax() {
-
+	current_season_seating_figures = new Array();
+	$.getJSON('seasonsMaxMin.json', function(data) {
+		for (var i = data.length - 1; i >= 0; i--) {
+			if (data[i].season == current_season) {
+				current_season_seating_figures.push(data[i]);
+			}
+		}
+	});
 }
 
 function seasonFinder(newDate) {
