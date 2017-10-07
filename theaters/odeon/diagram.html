@@ -72,7 +72,94 @@
 
 	var diagram = d3.select('#diagram').append('svg')
 		.attr("width", width)
-		.attr("height", height);
+		.attr("height", height)
+		.attr("transform", "translate(" + width * -.05 + "," + 0 + ")");
+
+
+	var paradis = d3.arc()
+		.innerRadius(measure * .4)
+		.outerRadius(measure * .38)
+		.startAngle(1 * Math.PI)
+		.endAngle(0 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", paradis)
+		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
+
+	var paradis2 = d3.arc()
+		.innerRadius(measure * .43)
+		.outerRadius(measure * .41)
+		.startAngle(.2 * Math.PI)
+		.endAngle(0 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", paradis2)
+		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
+
+	var paradis3 = d3.arc()
+		.innerRadius(measure * .43)
+		.outerRadius(measure * .41)
+		.startAngle(.8 * Math.PI)
+		.endAngle(1 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", paradis3)
+		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
+
+	var paradis4 = d3.arc()
+		.innerRadius(measure * .43)
+		.outerRadius(measure * .41)
+		.startAngle(.25 * Math.PI)
+		.endAngle(.75 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", paradis4)
+		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
+
+	var paradis5 = d3.arc()
+		.innerRadius(measure * .46)
+		.outerRadius(measure * .44)
+		.startAngle(.2 * Math.PI)
+		.endAngle(0 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", paradis5)
+		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
+
+	var paradis6 = d3.arc()
+		.innerRadius(measure * .46)
+		.outerRadius(measure * .44)
+		.startAngle(.8 * Math.PI)
+		.endAngle(1 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", paradis6)
+		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
+
+	var paradis7 = d3.arc()
+		.innerRadius(measure * .46)
+		.outerRadius(measure * .44)
+		.startAngle(.25 * Math.PI)
+		.endAngle(.75 * Math.PI);
+	diagram.append("path")
+		.attr("class", "boxes")
+		.attr("d", paradis7)
+		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
+
+
+	var para1t = diagram.append("rect")
+		.attr("x", (width * .5) - measure * .3)
+		.attr("y",  (height * .5) - (measure * .40))
+		.attr("width", measure * .3)
+		.attr("height", (measure * .02))
+		.attr("class", "boxes line");
+	var para1b = diagram.append("rect")
+		.attr("x", (width * .5) - measure * .3)
+		.attr("y",  (height * .5) + (measure * .38))
+		.attr("width", measure * .3)
+		.attr("height", (measure * .02))
+		.attr("class", "boxes line");
+
 
 	var arc_3r = d3.arc()
 		.innerRadius(measure * .37)
@@ -104,57 +191,90 @@
 		.attr("d", arc_1r)
 		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
 
-	var parterre = d3.arc()
-		.innerRadius(measure * .24)
-		.outerRadius(0)
-		.startAngle(1 * Math.PI)
-		.endAngle(0 * Math.PI);
-	diagram.append("path")
-		.attr("class", "boxes")
-		.attr("d", parterre)
-		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
+	var parterre0 = diagram.append("rect")
+		.attr("x", (width * .5) + measure * .08)
+		.attr("y",  (height * .5) - (measure * .19))
+		.attr("width", measure * .03)
+		.attr("height", (measure * .39))
+		.attr("class", "boxes parterre line");
+	var parterre1 = diagram.append("rect")
+		.attr("x", (width * .5) + measure * .04)
+		.attr("y",  (height * .5) - (measure * .21))
+		.attr("width", measure * .03)
+		.attr("height", (measure * .43))
+		.attr("class", "boxes parterre line");
 	var parterre2 = diagram.append("rect")
-		.attr("x", (width * .5) - 124)
+		.attr("x", (width * .5))
 		.attr("y",  (height * .5) - (measure * .24))
-		.attr("width", 125)
+		.attr("width", measure * .03)
 		.attr("height", (measure * .48))
-		.attr("class", "boxes line");
+		.attr("class", "boxes parterre line");
+	var parterre3 = diagram.append("rect")
+		.attr("x", (width * .5) - measure * .04)
+		.attr("y",  (height * .5) - (measure * .24))
+		.attr("width", measure * .03)
+		.attr("height", (measure * .48))
+		.attr("class", "boxes parterre line");
+	var parterre4 = diagram.append("rect")
+		.attr("x", (width * .5) - measure * .08)
+		.attr("y",  (height * .5) - (measure * .24))
+		.attr("width", measure * .03)
+		.attr("height", (measure * .48))
+		.attr("class", "boxes parterre line");
+	var parterre5 = diagram.append("rect")
+		.attr("x", (width * .5) - measure * .12)
+		.attr("y",  (height * .5) - (measure * .24))
+		.attr("width", measure * .03)
+		.attr("height", (measure * .48))
+		.attr("class", "boxes parterre line");
+	var parterre6 = diagram.append("rect")
+		.attr("x", (width * .5) - measure * .16)
+		.attr("y",  (height * .5) - (measure * .24))
+		.attr("width", measure * .03)
+		.attr("height", (measure * .48))
+		.attr("class", "boxes parterre line");
+	var parterre7 = diagram.append("rect")
+		.attr("x", (width * .5) - measure * .20)
+		.attr("y",  (height * .5) - (measure * .24))
+		.attr("width", measure * .03)
+		.attr("height", (measure * .48))
+		.attr("class", "boxes parterre line");
 
 	var rect3t = diagram.append("rect")
-		.attr("x", (width * .5) - 124)
+		.attr("x", (width * .5) - measure * .3)
 		.attr("y",  (height * .5) - (measure * .37))
-		.attr("width", 125)
+		.attr("width", measure * .3)
 		.attr("height", (measure * .03))
 		.attr("class", "boxes line");
 	var rect2t = diagram.append("rect")
-		.attr("x", (width * .5) - 124)
+		.attr("x", (width * .5) - measure * .3)
 		.attr("y",  (height * .5) - (measure * .33))
-		.attr("width", 125)
+		.attr("width", measure * .3)
 		.attr("height", (measure * .03))
 		.attr("class", "boxes line");
 	var rect1t = diagram.append("rect")
-		.attr("x", (width * .5) - 124)
+		.attr("x", (width * .5) - measure * .3)
 		.attr("y",  (height * .5) - (measure * .29))
-		.attr("width", 125)
+		.attr("width", measure * .3)
 		.attr("height", (measure * .03))
 		.attr("class", "boxes line");
 
 	var rect1b = diagram.append("rect")
-		.attr("x", (width * .5) - 124)
+		.attr("x", (width * .5) - measure * .3)
 		.attr("y",  (height * .5) + (measure * .26))
-		.attr("width", 125)
+		.attr("width", measure * .3)
 		.attr("height", (measure * .03))
 		.attr("class", "boxes line");
 	var rect2b = diagram.append("rect")
-		.attr("x", (width * .5) - 124)
+		.attr("x", (width * .5) - measure * .3)
 		.attr("y",  (height * .5) + (measure * .30))
-		.attr("width", 125)
+		.attr("width", measure * .3)
 		.attr("height", (measure * .03))
 		.attr("class", "boxes line");
 	var rect3b = diagram.append("rect")
-		.attr("x", (width * .5) - 124)
+		.attr("x", (width * .5) - measure * .3)
 		.attr("y",  (height * .5) + (measure * .34))
-		.attr("width", 125)
+		.attr("width", measure * .3)
 		.attr("height", (measure * .03))
 		.attr("class", "boxes line");
 

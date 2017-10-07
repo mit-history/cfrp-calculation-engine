@@ -13,3 +13,19 @@
 .visualization {
 	margin: 10px;
 }
+
+.section {
+	fill: #159489;
+}
+
+.line {
+	stroke: #159489;
+}
+
+.rect {
+	fill: #159489;
+}
+
+.arc {
+	fill: #159489;
+}
