@@ -76,7 +76,18 @@ function seasonFinder(newDate) {
 }
 
 function heatmapFireworks(evening_totals) {
-	//Get an array of JSON object and summons the magic.
+	
+	var heatmapData = evening_totals;
+	console.log(heatmapData);
+	$(heatmapData).each(function(x,y){
+
+		if (y.name == 'Premières loges'){
+			
+		}		
+
+	});
+	var color = d3.scaleLinear().range(["#0100FE", "#FD0000"]).domain([1, 100]);
+	
 }
 
 function loadSlider() {
@@ -166,7 +177,7 @@ function getSeason(newSeason) {
 	getSeasonMinMax();
 	loadSlider();
 	//setMaximum();
-	console.log("Cur th: " + prev_theater + " – NEw th : " + current_theater);
+	// console.log("Cur th: " + prev_theater + " – NEw th : " + current_theater);
 	if(prev_theater != current_theater) {
 		drawTheater(current_theater);
 	}
@@ -194,13 +205,12 @@ function setDate(date) {
 		});
 	});
 	
-	/*
-	Calculation
-	for (var j = 0; j < evening_totals.length; j++) {
-		evening_totals[j].total_perc = evening_totals[j].total/current_season_seating_profile_max.id[evening_totals[j].id].total;
-	}*/
-
-	heatmapFireworks(JSON.stringify(evening_totals));
+	// Calculation
+	// for (var j = 0; j < evening_totals.length; j++) {
+	// 	evening_totals[j].total_perc = evening_totals[j].total/current_season_seating_profile_max.id[evening_totals[j].id].total;
+	// }
+	// alert(JSON.stringify(evening_totals));
+	heatmapFireworks(evening_totals);
 	
 }
 
