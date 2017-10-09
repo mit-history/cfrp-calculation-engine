@@ -83,8 +83,8 @@ function heatmapFireworks(evening_totals) {
 	console.log(heatmapData);
 	$(heatmapData).each(function(x,y){
 		var seatingStats = getSeatingArea(y.id, current_season_seating_figures);
-		var minStats = seatingStats["avg"] - (2 * seatingStats["dev"]);
-		var maxStats = seatingStats["avg"] + (2 * seatingStats["dev"]);
+		var minStats = seatingStats["min"];
+		var maxStats = seatingStats["max"];
 		color = d3.scaleLinear().range(["#0100FE", "#FD0000"]).domain([minStats, maxStats]);
 		thisTotal = y.total;
 		console.log("(((" + y.name + ")))", "minimum: " + minStats, "average: " + seatingStats["avg"], "maximum: " + maxStats, "standard deviation: " + seatingStats["dev"], "total for this day: " + thisTotal);
@@ -286,21 +286,21 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure * .16))
 		.attr("x2", width * .8)
 		.attr("y2", height / 2 + (measure * .16))
-		.attr("class", "section line")
+		.attr("class", "section line 67")
 		.attr("stroke-width", measure * .03);
 	var arc2v = heatmap.append("line")
 		.attr("x1", width * .77)
 		.attr("y1", height / 2 - (measure * .15))
 		.attr("x2", width * .77)
 		.attr("y2", height / 2 + (measure * .15))
-		.attr("class", "section line")
+		.attr("class", "section line 66")
 		.attr("stroke-width", measure * .03);
 	var arc1v = heatmap.append("line")
 		.attr("x1", width * .74)
 		.attr("y1", height / 2 - (measure * .14))
 		.attr("x2", width * .74)
 		.attr("y2", height / 2 + (measure * .14))
-		.attr("class", "section line")
+		.attr("class", "section line 64")
 		.attr("stroke-width", measure * .03);
 
 	var arc3v_t = heatmap.append("line")
@@ -308,21 +308,21 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure * .25))
 		.attr("x2", width * .8)
 		.attr("y2", height / 2 - (measure * .15))
-		.attr("class", "section line")
+		.attr("class", "section line 67")
 		.attr("stroke-width", measure * .03);
 	var arc2v_t = heatmap.append("line")
 		.attr("x1", width * .715)
 		.attr("y1", height / 2 - (measure * .22))
 		.attr("x2", width * .77)
 		.attr("y2", height / 2 - (measure * .14))
-		.attr("class", "section line")
+		.attr("class", "section line 66")
 		.attr("stroke-width", measure * .03);
 	var arc1v_t = heatmap.append("line")
 		.attr("x1", width * .7)
 		.attr("y1", height / 2 - (measure * .19))
 		.attr("x2", width * .74)
 		.attr("y2", height / 2 - (measure * .13))
-		.attr("class", "section line")
+		.attr("class", "section line 64")
 		.attr("stroke-width", measure * .03);
 
 	var arc3v_b = heatmap.append("line")
@@ -330,30 +330,38 @@ function guenegaud(){
 		.attr("y1", height / 2 + (measure * .25))
 		.attr("x2", width * .8)
 		.attr("y2", height / 2 + (measure * .15))
-		.attr("class", "section line")
+		.attr("class", "section line 67")
 		.attr("stroke-width", measure * .03);
 	var arc2v_b = heatmap.append("line")
 		.attr("x1", width * .715)
 		.attr("y1", height / 2 + (measure * .22))
 		.attr("x2", width * .77)
 		.attr("y2", height / 2 + (measure * .14))
-		.attr("class", "section line")
+		.attr("class", "section line 66")
 		.attr("stroke-width", measure * .03);
 	var arc1v_b = heatmap.append("line")
 		.attr("x1", width * .7)
 		.attr("y1", height / 2 + (measure * .19))
 		.attr("x2", width * .74)
 		.attr("y2", height / 2 + (measure * .13))
-		.attr("class", "section line")
+		.attr("class", "section line 64")
 		.attr("stroke-width", measure * .03);
 
+
+	var corner_3rt = heatmap.append("line")
+		.attr("x1", width * .57)
+		.attr("y1", height / 2 - (measure / 3.33) - (measure * .04))
+		.attr("x2", width * .67)
+		.attr("y2", height / 2 - (measure / 3.66) - (measure * .04))
+		.attr("class", "section line 67")
+		.attr("stroke-width", measure * .03);
 
 	var corner_2rt = heatmap.append("line")
 		.attr("x1", width * .57)
 		.attr("y1", height / 2 - (measure / 3.33))
 		.attr("x2", width * .67)
 		.attr("y2", height / 2 - (measure / 3.66))
-		.attr("class", "section line")
+		.attr("class", "section line 66")
 		.attr("stroke-width", measure * .03);
 
 	var corner_1rt = heatmap.append("line")
@@ -361,7 +369,7 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure / 3.33) + (measure * .04))
 		.attr("x2", width * .67)
 		.attr("y2", height / 2 - (measure / 3.66) + (measure * .04))
-		.attr("class", "section line")
+		.attr("class", "section line 64")
 		.attr("stroke-width", measure * .03);
 
 	var corner_1rb = heatmap.append("line")
@@ -369,7 +377,7 @@ function guenegaud(){
 		.attr("y1", height / 2 + (measure / 3.33) - (measure * .04))
 		.attr("x2", width * .67)
 		.attr("y2", height / 2 + (measure / 3.66) - (measure * .04))
-		.attr("class", "section line")
+		.attr("class", "section line 64")
 		.attr("stroke-width", measure * .03);
 
 	var corner_2rb = heatmap.append("line")
@@ -377,23 +385,39 @@ function guenegaud(){
 		.attr("y1", height / 2 + (measure / 3.33))
 		.attr("x2", width * .67)
 		.attr("y2", height / 2 + (measure / 3.66))
-		.attr("class", "section line")
+		.attr("class", "section line 66")
+		.attr("stroke-width", measure * .03);
+
+	var corner_3rb = heatmap.append("line")
+		.attr("x1", width * .57)
+		.attr("y1", height / 2 + (measure / 3.33) + (measure * .04))
+		.attr("x2", width * .67)
+		.attr("y2", height / 2 + (measure / 3.66) + (measure * .04))
+		.attr("class", "section line 67")
+		.attr("stroke-width", measure * .03);
+
+	var box_3rt = heatmap.append("line")
+		.attr("x1", width * .5725)
+		.attr("y1", height / 2 - (measure / 2.63) + (measure * .04))
+		.attr("x2", width * .17)
+		.attr("y2", height / 2 - (measure / 2.63) + (measure * .04))
+		.attr("class", "section line 67")
 		.attr("stroke-width", measure * .03);
 
 	var box_2rt = heatmap.append("line")
 		.attr("x1", width * .5725)
-		.attr("y1", height / 2 - (measure / 3.33) + (measure * .04))
-		.attr("x2", width * .17)
-		.attr("y2", height / 2 - (measure / 3.33) + (measure * .04))
-		.attr("class", "section line")
-		.attr("stroke-width", measure * .03);
-
-	var box_1rt = heatmap.append("line")
-		.attr("x1", width * .5725)
 		.attr("y1", height / 2 - (measure / 2.95) + (measure * .04))
 		.attr("x2", width * .17)
 		.attr("y2", height / 2 - (measure / 2.95) + (measure * .04))
-		.attr("class", "section line")
+		.attr("class", "section line 66")
+		.attr("stroke-width", measure * .03);		
+
+	var box_1rt = heatmap.append("line")
+		.attr("x1", width * .5725)
+		.attr("y1", height / 2 - (measure / 3.33) + (measure * .04))
+		.attr("x2", width * .17)
+		.attr("y2", height / 2 - (measure / 3.33) + (measure * .04))
+		.attr("class", "section line 64")
 		.attr("stroke-width", measure * .03);
 
 	var box_1rb = heatmap.append("line")
@@ -401,7 +425,7 @@ function guenegaud(){
 		.attr("y1", height / 2 + (measure / 3.33) - (measure * .04))
 		.attr("x2", width * .17)
 		.attr("y2", height / 2 + (measure / 3.33) - (measure * .04))
-		.attr("class", "section line")
+		.attr("class", "section line 64")
 		.attr("stroke-width", measure * .03);
 
 	var box_2rb = heatmap.append("line")
@@ -409,95 +433,103 @@ function guenegaud(){
 		.attr("y1", height / 2 + (measure / 2.95) - (measure * .04))
 		.attr("x2", width * .17)
 		.attr("y2", height / 2 + (measure / 2.95) - (measure * .04))
-		.attr("class", "section line")
+		.attr("class", "section line 66")
+		.attr("stroke-width", measure * .03);
+
+	var box_3rb = heatmap.append("line")
+		.attr("x1", width * .5725)
+		.attr("y1", height / 2 + (measure / 2.63) - (measure * .04))
+		.attr("x2", width * .17)
+		.attr("y2", height / 2 + (measure / 2.63) - (measure * .04))
+		.attr("class", "section line 67")
 		.attr("stroke-width", measure * .03);
 
 	var box_floor_2t = heatmap.append("line")
-		.attr("x1", width * .5)
+		.attr("x1", width * .4)
 		.attr("y1", height / 2 - (measure / 3.81) + (measure * .04))
 		.attr("x2", width * .17)
 		.attr("y2", height / 2 - (measure / 3.81) + (measure * .04))
-		.attr("class", "section line")
+		.attr("class", "section line 63")
 		.attr("stroke-width", measure * .03);
 
 	var box_floor_1t = heatmap.append("line")
-		.attr("x1", width * .5)
+		.attr("x1", width * .4)
 		.attr("y1", height / 2 - (measure / 4.45) + (measure * .04))
 		.attr("x2", width * .17)
 		.attr("y2", height / 2 - (measure / 4.45) + (measure * .04))
-		.attr("class", "section line")
+		.attr("class", "section line 63")
 		.attr("stroke-width", measure * .03);
 
 	var box_floor_1b = heatmap.append("line")
-		.attr("x1", width * .5)
+		.attr("x1", width * .4)
 		.attr("y1", height / 2 + (measure / 3.81) - (measure * .04))
 		.attr("x2", width * .17)
 		.attr("y2", height / 2 + (measure / 3.81) - (measure * .04))
-		.attr("class", "section line")
+		.attr("class", "section line 63")
 		.attr("stroke-width", measure * .03);
 
 	var box_floor_2b = heatmap.append("line")
-		.attr("x1", width * .5)
+		.attr("x1", width * .4)
 		.attr("y1", height / 2 + (measure / 4.45) - (measure * .04))
 		.attr("x2", width * .17)
 		.attr("y2", height / 2 + (measure / 4.45) - (measure * .04))
-		.attr("class", "section line")
+		.attr("class", "section line 63")
 		.attr("stroke-width", measure * .03);
 
 	var floor_vertical = heatmap.append("line")
-		.attr("x1", width *  .4915)
+		.attr("x1", width * .4)
 		.attr("y1", height / 2 - (measure / 4.05))
-		.attr("x2", width * .4915)
+		.attr("x2", width * .4)
 		.attr("y2", height / 2 + (measure / 4.05))
-		.attr("class", "section line")
+		.attr("class", "section line 63")
 		.attr("stroke-width", measure * .03);
 
 	var ampitheater_r6 = heatmap.append("line")
-		.attr("x1", width *  .68)
+		.attr("x1", width *  .62)
 		.attr("y1", height / 2 - (measure / 7))
-		.attr("x2", width *  .68)
+		.attr("x2", width *  .62)
 		.attr("y2", height / 2 + (measure / 7))
-		.attr("class", "section line")
+		.attr("class", "section line 68")
 		.attr("stroke-width", measure * .03);
 
 	var ampitheater_r5 = heatmap.append("line")
-		.attr("x1", width *  .65)
+		.attr("x1", width *  .59)
 		.attr("y1", height / 2 - (measure / 6))
-		.attr("x2", width *  .65)
+		.attr("x2", width *  .59)
 		.attr("y2", height / 2 + (measure / 6))
-		.attr("class", "section line")
+		.attr("class", "section line 68")
 		.attr("stroke-width", measure * .03);
 
 	var ampitheater_r4 = heatmap.append("line")
-		.attr("x1", width *  .62)
+		.attr("x1", width *  .56)
 		.attr("y1", height / 2 - (measure / 6))
-		.attr("x2", width *  .62)
+		.attr("x2", width *  .56)
 		.attr("y2", height / 2 + (measure / 6))
-		.attr("class", "section line")
+		.attr("class", "section line 68")
 		.attr("stroke-width", measure * .03);
 
 	var ampitheater_r3 = heatmap.append("line")
-		.attr("x1", width *  .59)
-		.attr("y1", height / 2 - (measure / 6))
-		.attr("x2", width * .59)
-		.attr("y2", height / 2 + (measure / 6))
-		.attr("class", "section line")
-		.attr("stroke-width", measure * .03);
-
-	var ampitheater_r2 = heatmap.append("line")
-		.attr("x1", width *  .56)
-		.attr("y1", height / 2 - (measure / 6))
-		.attr("x2", width * .56)
-		.attr("y2", height / 2 + (measure / 6))
-		.attr("class", "section line")
-		.attr("stroke-width", measure * .03);
-
-	var ampitheater_r1 = heatmap.append("line")
 		.attr("x1", width *  .53)
 		.attr("y1", height / 2 - (measure / 6))
 		.attr("x2", width * .53)
 		.attr("y2", height / 2 + (measure / 6))
-		.attr("class", "section line")
+		.attr("class", "section line 68")
+		.attr("stroke-width", measure * .03);
+
+	var ampitheater_r2 = heatmap.append("line")
+		.attr("x1", width *  .5)
+		.attr("y1", height / 2 - (measure / 6))
+		.attr("x2", width * .5)
+		.attr("y2", height / 2 + (measure / 6))
+		.attr("class", "section line 68")
+		.attr("stroke-width", measure * .03);
+
+	var ampitheater_r1 = heatmap.append("line")
+		.attr("x1", width *  .47)
+		.attr("y1", height / 2 - (measure / 6))
+		.attr("x2", width * .47)
+		.attr("y2", height / 2 + (measure / 6))
+		.attr("class", "section line 68")
 		.attr("stroke-width", measure * .03);
 
 }
@@ -646,6 +678,10 @@ function stgermain(){
 		.attr("y2", height / 2 - (measure * .24))
 		.attr("class", "section front line 74")
 		.attr("stroke-width", measure * .02);
+
+	if (current_theater == 'Rue des Fossés St-Germain II'){
+		$('.front').css("display", "none");
+	}
 }
 
 
@@ -668,7 +704,7 @@ function tuileries(){
 		.startAngle(1 * Math.PI)
 		.endAngle(0 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section troisiemeloge arc")
+		.attr("class", "section troisiemeloge arc 84")
 		.attr("d", arc_3r)
 		.attr("transform", "translate(" + width * .625 + "," + height / 2 + ")");
 
@@ -678,7 +714,7 @@ function tuileries(){
 		.startAngle(1 * Math.PI)
 		.endAngle(0 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section deuxiemeloge arc")
+		.attr("class", "section deuxiemeloge arc 83")
 		.attr("d", arc_2r)
 		.attr("transform", "translate(" + width * .625 + "," + height / 2 + ")");
 
@@ -688,7 +724,7 @@ function tuileries(){
 		.startAngle(1 * Math.PI)
 		.endAngle(0 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section premiereloge arc")
+		.attr("class", "section premiereloge arc 82")
 		.attr("d", arc_1r)
 		.attr("transform", "translate(" + width * .625 + "," + height / 2 + ")");
 
@@ -697,42 +733,42 @@ function tuileries(){
 		.attr("y1", height / 2 - (measure / 2.8175))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 - (measure / 2.8175))
-		.attr("class", "section troisiemeloge line")
+		.attr("class", "section troisiemeloge line 84")
 		.attr("stroke-width", measure * .03);
 	var loge_3rb = heatmap.append("line")
 		.attr("x1", width * .625)
 		.attr("y1", height / 2 + (measure / 2.8175))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 + (measure / 2.8175))
-		.attr("class", "section troisiemeloge line")
+		.attr("class", "section troisiemeloge line 84")
 		.attr("stroke-width", measure * .03);
 	var loge_2rt = heatmap.append("line")
 		.attr("x1", width * .625)
 		.attr("y1", height / 2 - (measure / 3.175))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 - (measure / 3.175))
-		.attr("class", "section deuxiemeloge line")
+		.attr("class", "section deuxiemeloge line 83")
 		.attr("stroke-width", measure * .03);
 	var loge_2rb = heatmap.append("line")
 		.attr("x1", width * .625)
 		.attr("y1", height / 2 + (measure / 3.175))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 + (measure / 3.175))
-		.attr("class", "section deuxiemeloge line")
+		.attr("class", "section deuxiemeloge line 83")
 		.attr("stroke-width", measure * .03);
 	var loge_1rt = heatmap.append("line")
 		.attr("x1", width * .625)
 		.attr("y1", height / 2 - (measure / 3.635))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 - (measure / 3.635))
-		.attr("class", "section premiereloge line")
+		.attr("class", "section premiereloge line 82")
 		.attr("stroke-width", measure * .03);
 	var loge_1rb = heatmap.append("line")
 		.attr("x1", width * .625)
 		.attr("y1", height / 2 + (measure / 3.635))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 + (measure / 3.635))
-		.attr("class", "section premiereloge line")
+		.attr("class", "section premiereloge line 82")
 		.attr("stroke-width", measure * .03);
 
 	var amphitheater_4e = heatmap.append("line")
@@ -740,28 +776,28 @@ function tuileries(){
 		.attr("y1", height / 2 + (measure * .1))
 		.attr("x2", width * .7 + (measure * .04))
 		.attr("y2", height / 2 - (measure * .1))
-		.attr("class", "section amphitheater line")
+		.attr("class", "section amphitheater line 85")
 		.attr("stroke-width", measure * .03);
 	var amphitheater_3e = heatmap.append("line")
 		.attr("x1", width * .68 + (measure * .03))
 		.attr("y1", height / 2 + (measure * .18))
 		.attr("x2", width * .68 + (measure * .03))
 		.attr("y2", height / 2 - (measure * .18))
-		.attr("class", "section amphitheater line")
+		.attr("class", "section amphitheater line 85")
 		.attr("stroke-width", measure * .03);
 	var amphitheater_2e = heatmap.append("line")
 		.attr("x1", width * .66 + (measure * .02))
 		.attr("y1", height / 2 + (measure * .2))
 		.attr("x2", width * .66 + (measure * .02))
 		.attr("y2", height / 2 - (measure * .2))
-		.attr("class", "section amphitheater line")
+		.attr("class", "section amphitheater line 85")
 		.attr("stroke-width", measure * .03);
 	var amphitheater_1e = heatmap.append("line")
 		.attr("x1", width * .64 + (measure * .01))
 		.attr("y1", height / 2 + (measure * .22))
 		.attr("x2", width * .64 + (measure * .01))
 		.attr("y2", height / 2 - (measure * .22))
-		.attr("class", "section amphitheater line")
+		.attr("class", "section amphitheater line 85")
 		.attr("stroke-width", measure * .03);
 
 	var parterre = heatmap.append("rect")
@@ -769,7 +805,7 @@ function tuileries(){
 		.attr("y", height / 2 - (measure * .24))
 		.attr("width", width * .245)
 		.attr("height", measure / 2 - (measure * .02))
-		.attr("class", "section parterre rect");
+		.attr("class", "section parterre rect 86");
 
 
 };
@@ -794,7 +830,7 @@ function odeon(){
 		.startAngle(1 * Math.PI)
 		.endAngle(0 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section")
+		.attr("class", "section 90 93")
 		.attr("d", paradis)
 		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
 
@@ -804,7 +840,7 @@ function odeon(){
 		.startAngle(.2 * Math.PI)
 		.endAngle(0 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section")
+		.attr("class", "section 93")
 		.attr("d", paradis2)
 		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
 
@@ -814,7 +850,7 @@ function odeon(){
 		.startAngle(.8 * Math.PI)
 		.endAngle(1 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section")
+		.attr("class", "section 93")
 		.attr("d", paradis3)
 		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
 
@@ -824,7 +860,7 @@ function odeon(){
 		.startAngle(.25 * Math.PI)
 		.endAngle(.75 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section")
+		.attr("class", "section 93")
 		.attr("d", paradis4)
 		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
 
@@ -834,7 +870,7 @@ function odeon(){
 		.startAngle(.2 * Math.PI)
 		.endAngle(0 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section")
+		.attr("class", "section 93")
 		.attr("d", paradis5)
 		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
 
@@ -844,7 +880,7 @@ function odeon(){
 		.startAngle(.8 * Math.PI)
 		.endAngle(1 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section")
+		.attr("class", "section 93")
 		.attr("d", paradis6)
 		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
 
@@ -854,7 +890,7 @@ function odeon(){
 		.startAngle(.25 * Math.PI)
 		.endAngle(.75 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section")
+		.attr("class", "section 93")
 		.attr("d", paradis7)
 		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
 
@@ -864,13 +900,13 @@ function odeon(){
 		.attr("y",  (height * .5) - (measure * .40))
 		.attr("width", measure * .3)
 		.attr("height", (measure * .02))
-		.attr("class", "section");
+		.attr("class", "section 90 93");
 	var para1b = heatmap.append("rect")
 		.attr("x", (width * .5) - measure * .3)
 		.attr("y",  (height * .5) + (measure * .38))
 		.attr("width", measure * .3)
 		.attr("height", (measure * .02))
-		.attr("class", "section");
+		.attr("class", "section 90 93");
 
 
 	var arc_3r = d3.arc()
@@ -879,7 +915,7 @@ function odeon(){
 		.startAngle(1 * Math.PI)
 		.endAngle(0 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section")
+		.attr("class", "section 89")
 		.attr("d", arc_3r)
 		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
 
@@ -889,7 +925,7 @@ function odeon(){
 		.startAngle(1 * Math.PI)
 		.endAngle(0 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section")
+		.attr("class", "section 88")
 		.attr("d", arc_2r)
 		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
 	
@@ -899,7 +935,7 @@ function odeon(){
 		.startAngle(1 * Math.PI)
 		.endAngle(0 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section")
+		.attr("class", "section 87")
 		.attr("d", arc_1r)
 		.attr("transform", "translate(" + width * .5 + "," + height / 2 + ")");
 
@@ -908,87 +944,87 @@ function odeon(){
 		.attr("y",  (height * .5) - (measure * .19))
 		.attr("width", measure * .03)
 		.attr("height", (measure * .39))
-		.attr("class", "section parterre line");
+		.attr("class", "section parterre line 92");
 	var parterre1 = heatmap.append("rect")
 		.attr("x", (width * .5) + measure * .04)
 		.attr("y",  (height * .5) - (measure * .21))
 		.attr("width", measure * .03)
 		.attr("height", (measure * .43))
-		.attr("class", "section parterre line");
+		.attr("class", "section parterre line 92");
 	var parterre2 = heatmap.append("rect")
 		.attr("x", (width * .5))
 		.attr("y",  (height * .5) - (measure * .24))
 		.attr("width", measure * .03)
 		.attr("height", (measure * .48))
-		.attr("class", "section parterre line");
+		.attr("class", "section parterre line 92");
 	var parterre3 = heatmap.append("rect")
 		.attr("x", (width * .5) - measure * .04)
 		.attr("y",  (height * .5) - (measure * .24))
 		.attr("width", measure * .03)
 		.attr("height", (measure * .48))
-		.attr("class", "section parterre line");
+		.attr("class", "section parterre line 92");
 	var parterre4 = heatmap.append("rect")
 		.attr("x", (width * .5) - measure * .08)
 		.attr("y",  (height * .5) - (measure * .24))
 		.attr("width", measure * .03)
 		.attr("height", (measure * .48))
-		.attr("class", "section parterre line");
+		.attr("class", "section parterre line 92");
 	var parterre5 = heatmap.append("rect")
 		.attr("x", (width * .5) - measure * .12)
 		.attr("y",  (height * .5) - (measure * .24))
 		.attr("width", measure * .03)
 		.attr("height", (measure * .48))
-		.attr("class", "section parterre line");
+		.attr("class", "section parterre line 92");
 	var parterre6 = heatmap.append("rect")
 		.attr("x", (width * .5) - measure * .16)
 		.attr("y",  (height * .5) - (measure * .24))
 		.attr("width", measure * .03)
 		.attr("height", (measure * .48))
-		.attr("class", "section parterre line");
+		.attr("class", "section parterre line 92");
 	var parterre7 = heatmap.append("rect")
 		.attr("x", (width * .5) - measure * .20)
 		.attr("y",  (height * .5) - (measure * .24))
 		.attr("width", measure * .03)
 		.attr("height", (measure * .48))
-		.attr("class", "section parterre line");
+		.attr("class", "section parterre line 92");
 
 	var rect3t = heatmap.append("rect")
 		.attr("x", (width * .5) - measure * .3)
 		.attr("y",  (height * .5) - (measure * .37))
 		.attr("width", measure * .3)
 		.attr("height", (measure * .03))
-		.attr("class", "section");
+		.attr("class", "section 89");
 	var rect2t = heatmap.append("rect")
 		.attr("x", (width * .5) - measure * .3)
 		.attr("y",  (height * .5) - (measure * .33))
 		.attr("width", measure * .3)
 		.attr("height", (measure * .03))
-		.attr("class", "section");
+		.attr("class", "section 88");
 	var rect1t = heatmap.append("rect")
 		.attr("x", (width * .5) - measure * .3)
 		.attr("y",  (height * .5) - (measure * .29))
 		.attr("width", measure * .3)
 		.attr("height", (measure * .03))
-		.attr("class", "section");
+		.attr("class", "section 87");
 
 	var rect1b = heatmap.append("rect")
 		.attr("x", (width * .5) - measure * .3)
 		.attr("y",  (height * .5) + (measure * .26))
 		.attr("width", measure * .3)
 		.attr("height", (measure * .03))
-		.attr("class", "section");
+		.attr("class", "section 87");
 	var rect2b = heatmap.append("rect")
 		.attr("x", (width * .5) - measure * .3)
 		.attr("y",  (height * .5) + (measure * .30))
 		.attr("width", measure * .3)
 		.attr("height", (measure * .03))
-		.attr("class", "section");
+		.attr("class", "section 88");
 	var rect3b = heatmap.append("rect")
 		.attr("x", (width * .5) - measure * .3)
 		.attr("y",  (height * .5) + (measure * .34))
 		.attr("width", measure * .3)
 		.attr("height", (measure * .03))
-		.attr("class", "section");	
+		.attr("class", "section 89");	
 
 }
 
