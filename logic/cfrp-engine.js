@@ -77,17 +77,41 @@ function seasonFinder(newDate) {
 
 function heatmapFireworks(evening_totals) {
 	
+	var color;
+	var thisTotal;
 	var heatmapData = evening_totals;
 	console.log(heatmapData);
 	$(heatmapData).each(function(x,y){
+		var seatingStats = getSeatingArea(y.id, current_season_seating_figures);
+		var minStats = seatingStats["avg"] - (2 * seatingStats["dev"]);
+		var maxStats = seatingStats["avg"] + (2 * seatingStats["dev"]);
+		color = d3.scaleLinear().range(["#0100FE", "#FD0000"]).domain([minStats, maxStats]);
+		thisTotal = y.total;
+		console.log("(((" + y.name + ")))", "minimum: " + minStats, "average: " + seatingStats["avg"], "maximum: " + maxStats, "standard deviation: " + seatingStats["dev"], "total for this day: " + thisTotal);
 
-		if (y.name == 'Premières loges'){
-			
-		}		
-
-	});
-	var color = d3.scaleLinear().range(["#0100FE", "#FD0000"]).domain([1, 100]);
+		var selectPaths = $("." + y.id);
+		$(selectPaths).each(function(x,y){
+			if (y.tagName == 'path' || y.tagName == 'rect'){
+				$(this).css("fill", color(thisTotal));
+			}
+			else {
+					$(this).css("stroke", color(thisTotal));
+			}
+		});
 	
+	});
+	
+	
+}
+
+function getSeatingArea(id, items){
+	var thisSeason;
+	$(items).each(function(x,y){
+		if (y.category == id){
+			thisSeason = y;
+		}
+	});
+	return thisSeason;
 }
 
 function loadSlider() {
@@ -498,7 +522,7 @@ function stgermain(){
 		.startAngle(1 * Math.PI)
 		.endAngle(0 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section troisiemeloge arc")
+		.attr("class", "section troisiemeloge arc 75")
 		.attr("d", arc_3r)
 		.attr("transform", "translate(" + width * .625 + "," + height / 2 + ")");
 
@@ -508,7 +532,7 @@ function stgermain(){
 		.startAngle(1 * Math.PI)
 		.endAngle(0 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section deuxiemeloge arc")
+		.attr("class", "section deuxiemeloge arc 75")
 		.attr("d", arc_2r)
 		.attr("transform", "translate(" + width * .625 + "," + height / 2 + ")");
 
@@ -518,7 +542,7 @@ function stgermain(){
 		.startAngle(1 * Math.PI)
 		.endAngle(0 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section premiereloge arc")
+		.attr("class", "section premiereloge arc 74")
 		.attr("d", arc_1r)
 		.attr("transform", "translate(" + width * .625 + "," + height / 2 + ")");
 
@@ -527,42 +551,42 @@ function stgermain(){
 		.attr("y1", height / 2 - (measure / 2.8175))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 - (measure / 2.8175))
-		.attr("class", "section troisiemeloge line")
+		.attr("class", "section troisiemeloge line 75")
 		.attr("stroke-width", measure * .03);
 	var loge_3rb = heatmap.append("line")
 		.attr("x1", width * .625)
 		.attr("y1", height / 2 + (measure / 2.8175))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 + (measure / 2.8175))
-		.attr("class", "section troisiemeloge line")
+		.attr("class", "section troisiemeloge line 75")
 		.attr("stroke-width", measure * .03);
 	var loge_2rt = heatmap.append("line")
 		.attr("x1", width * .625)
 		.attr("y1", height / 2 - (measure / 3.175))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 - (measure / 3.175))
-		.attr("class", "section deuxiemeloge line")
+		.attr("class", "section deuxiemeloge line 75")
 		.attr("stroke-width", measure * .03);
 	var loge_2rb = heatmap.append("line")
 		.attr("x1", width * .625)
 		.attr("y1", height / 2 + (measure / 3.175))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 + (measure / 3.175))
-		.attr("class", "section deuxiemeloge line")
+		.attr("class", "section deuxiemeloge line 75")
 		.attr("stroke-width", measure * .03);
 	var loge_1rt = heatmap.append("line")
 		.attr("x1", width * .625)
 		.attr("y1", height / 2 - (measure / 3.635))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 - (measure / 3.635))
-		.attr("class", "section premiereloge line")
+		.attr("class", "section premiereloge line 74")
 		.attr("stroke-width", measure * .03);
 	var loge_1rb = heatmap.append("line")
 		.attr("x1", width * .625)
 		.attr("y1", height / 2 + (measure / 3.635))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 + (measure / 3.635))
-		.attr("class", "section premiereloge line")
+		.attr("class", "section premiereloge line 74")
 		.attr("stroke-width", measure * .03);
 
 	var amphitheater_4e = heatmap.append("line")
@@ -570,28 +594,28 @@ function stgermain(){
 		.attr("y1", height / 2 + (measure * .1))
 		.attr("x2", width * .7 + (measure * .04))
 		.attr("y2", height / 2 - (measure * .1))
-		.attr("class", "section amphitheater line")
+		.attr("class", "section amphitheater line 75")
 		.attr("stroke-width", measure * .03);
 	var amphitheater_3e = heatmap.append("line")
 		.attr("x1", width * .68 + (measure * .03))
 		.attr("y1", height / 2 + (measure * .18))
 		.attr("x2", width * .68 + (measure * .03))
 		.attr("y2", height / 2 - (measure * .18))
-		.attr("class", "section amphitheater line")
+		.attr("class", "section amphitheater line 75")
 		.attr("stroke-width", measure * .03);
 	var amphitheater_2e = heatmap.append("line")
 		.attr("x1", width * .66 + (measure * .02))
 		.attr("y1", height / 2 + (measure * .2))
 		.attr("x2", width * .66 + (measure * .02))
 		.attr("y2", height / 2 - (measure * .2))
-		.attr("class", "section amphitheater line")
+		.attr("class", "section amphitheater line 75")
 		.attr("stroke-width", measure * .03);
 	var amphitheater_1e = heatmap.append("line")
 		.attr("x1", width * .64 + (measure * .01))
 		.attr("y1", height / 2 + (measure * .22))
 		.attr("x2", width * .64 + (measure * .01))
 		.attr("y2", height / 2 - (measure * .22))
-		.attr("class", "section amphitheater line")
+		.attr("class", "section amphitheater line 75")
 		.attr("stroke-width", measure * .03);
 
 	var parterre = heatmap.append("rect")
@@ -599,28 +623,28 @@ function stgermain(){
 		.attr("y", height / 2 - (measure * .24))
 		.attr("width", width * .245)
 		.attr("height", measure / 2 - (measure * .02))
-		.attr("class", "section parterre rect");
+		.attr("class", "section parterre rect 73");
 
 	var front_3 = heatmap.append("line")
 		.attr("x1", width * .31)
 		.attr("y1", height / 2 + (measure * .24))
 		.attr("x2", width * .31)
 		.attr("y2", height / 2 - (measure * .24))
-		.attr("class", "section front line")
+		.attr("class", "section front line 74")
 		.attr("stroke-width", measure * .02);
 	var front_2 = heatmap.append("line")
 		.attr("x1", width * .29)
 		.attr("y1", height / 2 + (measure * .24))
 		.attr("x2", width * .29)
 		.attr("y2", height / 2 - (measure * .24))
-		.attr("class", "section front line")
+		.attr("class", "section front line 74")
 		.attr("stroke-width", measure * .02);
 	var front_1 = heatmap.append("line")
 		.attr("x1", width * .27)
 		.attr("y1", height / 2 + (measure * .24))
 		.attr("x2", width * .27)
 		.attr("y2", height / 2 - (measure * .24))
-		.attr("class", "section front line")
+		.attr("class", "section front line 74")
 		.attr("stroke-width", measure * .02);
 }
 
