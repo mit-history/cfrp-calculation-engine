@@ -44,10 +44,19 @@ function seasonChange(newSeason) {
 //private functions
 
 function getSeasonDays(newSeason) {
-	$.getJSON('http://api2.cfregisters.org/registers?select=season,date&season=eq.' + newSeason + '&order=date.asc', function(data) {
+	/*$.getJSON('http://api2.cfregisters.org/registers?select=season,date&season=eq.' + newSeason + '&order=date.asc', function(data) {
 		current_season_min=new Date(data[0].date).toISOString().split('T')[0];
 		current_season_max=new Date(data[data.length-1].date).toISOString().split('T')[0];
 		current_season=newSeason;
+	});*/
+	$.getJSON('logic/seasonsDef.json',function(data) {
+		for (var i = data.length - 1; i >= 0; i--) {
+			if (data[i].season == newSeason) {
+				current_season_min=new Date(data[i].min).toISOString().split('T')[0];
+				current_season_max=new Date(data[i].max).toISOString().split('T')[0];
+				current_season=newSeason;
+			}
+		}
 	});
 }
 
