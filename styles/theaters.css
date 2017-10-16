@@ -33,3 +33,7 @@
 .section {
 	cursor: pointer !important;
 }
+
+.ui-widget-shadow {
+	opacity: 1 !important;
+}
