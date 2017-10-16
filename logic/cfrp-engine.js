@@ -89,6 +89,7 @@ function heatmapFireworks(evening_totals) {
 	var color;
 	var thisTotal;
 	var heatmapData = evening_totals;
+	var currentName = "";
 	console.log(heatmapData);
 	$(heatmapData).each(function(x,y){
 		var seatingStats = getSeatingArea(y.id, current_season_seating_figures);
@@ -97,9 +98,12 @@ function heatmapFireworks(evening_totals) {
 		color = d3.scaleLinear().range(["#0100FE", "#FD0000"]).domain([minStats, maxStats]);
 		thisTotal = y.total;
 		console.log("(((" + y.name + ")))", "minimum: " + minStats, "average: " + seatingStats["avg"], "maximum: " + maxStats, "standard deviation: " + seatingStats["dev"], "total for this day: " + thisTotal);
-
+		currentName = y.name;
 		var selectPaths = $("." + y.id);
 		$(selectPaths).each(function(x,y){
+			$(this).data("name", currentName);
+			$(this).data("total", thisTotal);
+			$(this).attr("title", currentName + ": " + thisTotal + " seats");
 			if (y.tagName == 'path' || y.tagName == 'rect'){
 				$(this).css("fill", color(thisTotal));
 			}
@@ -1040,6 +1044,11 @@ function odeon(){
 		.attr("class", "section 89");	
 
 }
+
+
+$(function() {
+    $( document ).tooltip();
+});
 
 // var classname;
 // var currentColor;

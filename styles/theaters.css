@@ -29,3 +29,7 @@
 .arc {
 	fill: #159489;
 }
+
+.section {
+	cursor: pointer !important;
+}
