@@ -103,7 +103,7 @@ function heatmapFireworks(evening_totals) {
 		$(selectPaths).each(function(x,y){
 			$(this).data("name", currentName);
 			$(this).data("total", thisTotal);
-			$(this).attr("title", currentName + ": " + thisTotal + " seats");
+			$(this).attr("title", currentName + ": " + thisTotal + " l.");
 			if (y.tagName == 'path' || y.tagName == 'rect'){
 				$(this).css("fill", color(thisTotal));
 			}
