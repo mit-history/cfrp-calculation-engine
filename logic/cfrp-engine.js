@@ -288,7 +288,8 @@ function guenegaud(){
 
 	var heatmap = d3.select('#heatmap').append('svg')
 		.attr("width", width)
-		.attr("height", height);
+		.attr("height", height)
+		.attr("transform", "scale(1.15,1.15)");;
 
 	var arc3v = heatmap.append("line")
 		.attr("x1", width * .8)
@@ -555,7 +556,8 @@ function stgermain(){
 	var heatmap = d3.select('#heatmap').append('svg')
 		.attr("width", width)
 		.attr("height", height)
-		.attr("transform", "translate(" + width * -.05 + "," + height * 0 + ")");
+		.attr("transform", "translate(" + width * -.05 + "," + height * 0 + ")")
+		.attr("transform", "scale(1.15,1.15)");
 
 	var arc_3r = d3.arc()
 		.innerRadius(measure * .37)
@@ -705,7 +707,8 @@ function tuileries(){
 	var heatmap = d3.select('#heatmap').append('svg')
 		.attr("width", width)
 		.attr("height", height)
-		.attr("transform", "translate(" + width * -.05 + "," + height * 0 + ")");
+		.attr("transform", "translate(" + width * -.05 + "," + height * 0 + ")")
+		.attr("transform", "scale(1.15,1.15)");
 
 	var arc_3r = d3.arc()
 		.innerRadius(measure * .37)
@@ -830,7 +833,8 @@ function odeon(){
 	var heatmap = d3.select('#heatmap').append('svg')
 		.attr("width", width)
 		.attr("height", height)
-		.attr("transform", "translate(" + width * -.05 + "," + 0 + ")");
+		.attr("transform", "translate(" + width * -.05 + "," + 0 + ")")
+		.attr("transform", "scale(1.15,1.05)");
 
 
 	var paradis = d3.arc()
