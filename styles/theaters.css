@@ -6,7 +6,8 @@
 
 #heatmap {
 	border: 1px solid #ACD8CE;
-	height: 100px;
+	display: block;
+	height: 65%;
 	min-height: 65%;
 }
 
