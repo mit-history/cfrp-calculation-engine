@@ -90,15 +90,42 @@ function heatmapFireworks(evening_totals) {
 	var thisTotal;
 	var heatmapData = evening_totals;
 	var currentName = "";
-	console.log(heatmapData);
+	$('.measurelines').remove();
+	// console.log(heatmapData);
 	$(heatmapData).each(function(x,y){
 		var seatingStats = getSeatingArea(y.id, current_season_seating_figures);
 		var minStats = seatingStats["min"];
 		var maxStats = seatingStats["max"];
-		color = d3.scaleLinear().range(["#0100FE", "#FD0000"]).domain([minStats, maxStats]);
+		// color = d3.scaleLinear().range(["#0100FE", "#FD0000"]).domain([minStats, maxStats]);
+		color = d3.scaleLinear().range(["#0100FE", "#FD0000"]).domain([seatingStats["avg"] - (seatingStats["dev"] * 1.5), seatingStats["avg"] + (seatingStats["dev"] * 1.5)]);
 		thisTotal = y.total;
 		console.log("(((" + y.name + ")))", "minimum: " + minStats, "average: " + seatingStats["avg"], "maximum: " + maxStats, "standard deviation: " + seatingStats["dev"], "total for this day: " + thisTotal);
 		currentName = y.name;
+
+		if (y.name != undefined){
+			var lineAmount = (((thisTotal - seatingStats["avg"]) / seatingStats["dev"]) * -100) + 150;
+			if (lineAmount > 300){
+				lineAmount = 300;
+			}
+			if (lineAmount < 1){
+				lineAmount = 0;
+			}
+
+			var getKey = d3.select(".legendsvg");
+			getKey.append("line")
+				.attr("x1", 30)
+				.attr("y1", lineAmount)
+				.attr("x2", 81)
+				.attr("y2", lineAmount)
+				.attr("stroke-width", 2)
+				.style("cursor", "pointer")
+				.attr("class", "measurelines")
+				.attr("title", currentName + ": " + thisTotal + " l.")
+				.attr("stroke", color(thisTotal))
+				.attr("transform", "translate(0,10)");	
+		}
+
+
 		var selectPaths = $("." + y.id);
 		$(selectPaths).each(function(x,y){
 			$(this).data("name", currentName);
@@ -108,7 +135,7 @@ function heatmapFireworks(evening_totals) {
 				$(this).css("fill", color(thisTotal));
 			}
 			else {
-					$(this).css("stroke", color(thisTotal));
+				$(this).css("stroke", color(thisTotal));
 			}
 		});
 	

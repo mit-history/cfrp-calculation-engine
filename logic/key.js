@@ -6,6 +6,7 @@ var legendW = $('#legend').width()/4;
 
 var key = d3.select("#legend")
 	.append("svg")
+	.attr("class", "legendsvg")
 	.attr("width", w)
 	.attr("height", h);
 
@@ -29,6 +30,7 @@ legend.append("stop")
 	.attr("stop-opacity", 1);
 
 key.append("rect")
+	.attr("class", "legendrect")
 	.attr("width", w - 100)
 	.attr("height", h - 10)
 	.style("fill", "url(#gradient)")
@@ -41,7 +43,7 @@ key.append("g")
 	.attr("class", "y axis")
 	.attr("transform", "translate("+(legendW + 41)+",10)")
 	.call(yAxis)
-	.append("text")
+	// .append("text")
 	.attr("transform", "rotate(-90)")
 	.attr("y", 30).attr("dy", ".71em")
 	.style("text-anchor", "end")
