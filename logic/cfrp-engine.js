@@ -94,6 +94,11 @@ function heatmapFireworks(evening_totals) {
 	// console.log(heatmapData);
 	$(heatmapData).each(function(x,y){
 		var seatingStats = getSeatingArea(y.id, current_season_seating_figures);
+		if (seatingStats == null) {
+			//better : 
+			seatingStats = new Object();
+			seatingStats.min = 0; seatingStats.max = 0; seatingStats.avg = 0; seatingStats.stddev = 0; y.name="non renseigné"; }
+
 		var minStats = seatingStats["min"];
 		var maxStats = seatingStats["max"];
 		// color = d3.scaleLinear().range(["#0100FE", "#FD0000"]).domain([minStats, maxStats]);
