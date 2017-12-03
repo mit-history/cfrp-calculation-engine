@@ -39,6 +39,7 @@ $("body").css("opacity","1");
 	$(function () {
 		getSeasonMinMax('1680-1681');
 		$("#season1").on("change", function (e) {
+			reset_date=true;
 
 			if (e.originalEvent) {
 				if(parseInt($("#season1").val()) < 1680 || isNaN(parseInt($("#season1").val()))) {
@@ -56,6 +57,7 @@ $("body").css("opacity","1");
 			}
 		});
 		$("#season2").on("change", function (e) {
+			reset_date=true;
 			if (e.originalEvent) {
 				if(parseInt($("#season2").val()) < 1681 || isNaN(parseInt($("#season2").val()))) {
 					$("#season2").val("1681");
@@ -73,6 +75,7 @@ $("body").css("opacity","1");
 		});
 
 		$("#dayDate").on("change", function (e) {
+			reset_date=false;
 			$("html").css("cursor", "progress");
 			if (e.originalEvent) { 
 				if(isValidDate($("#dayDate").val())) {
