@@ -5,11 +5,9 @@ var current_season_max;
 var current_season_days;
 
 var current_season_seating_figures;
-var current_season_seating_profile_ids;
 
 var current_theater = 'Odéon';
 var prev_theater;
-var reset_date=true; //in case of season change with a date;
 
 
 //UI actions
@@ -19,13 +17,10 @@ function dateChange(newDate) {
 		if (data.length > 0) {
 			
 			if (newDate < current_season_min || newDate > current_season_max) {
-				
 				seasonChange(seasonFinder(newDate));
 			}
 			setInfos(newDate);
 			setDate(newDate);
-			slider.noUiSlider.set(findDayPosition(current_season_days,newDate));
-
 
 			$("html").css("cursor", "default");
 		} else {
@@ -40,12 +35,8 @@ function seasonChange(newSeason) {
 	//need input control
 	$("html").css("cursor", "wait");
 	getSeason(newSeason);
-	
-	if (reset_date) {
-		dateChange(current_season_min);
-		$("#dayDate").val(current_season_min);
-	} 
-	
+	dateChange(current_season_min);
+	$("#dayDate").val(current_season_min);
 	$("html").css("cursor", "default");
 }
 
@@ -100,17 +91,14 @@ function heatmapFireworks(evening_totals) {
 	var heatmapData = evening_totals;
 	var currentName = "";
 	$('.measurelines').remove();
-	console.log("HEATMAPDATA : " + heatmapData);
+	console.log(heatmapData);
 	$(heatmapData).each(function(x,y){
 		var seatingStats = getSeatingArea(y.id, current_season_seating_figures);
-
-		if (seatingStats == null) {
-			//better : 
-			seatingStats = new Object();
-			seatingStats.min = 0; seatingStats.max = 0; seatingStats.avg = 0; seatingStats.stddev = 0; y.name="non renseigné"; }
+		
+		if (typeof(seatingStats) != 'undefined'){
 
 		var minStats = seatingStats["min"];
-		var maxStats = seatingStats["max"];
+		var maxStats = seatingStats["max"];			
 		// color = d3.scaleLinear().range(["#0100FE", "#FD0000"]).domain([minStats, maxStats]);
 		color = d3.scaleLinear().range(["#0100FE", "#FD0000"]).domain([seatingStats["avg"] - (seatingStats["dev"] * 1.5), seatingStats["avg"] + (seatingStats["dev"] * 1.5)]);
 		thisTotal = y.total;
@@ -153,19 +141,19 @@ function heatmapFireworks(evening_totals) {
 				$(this).css("stroke", color(thisTotal));
 			}
 		});
+	}
+	
+	});
+
+	$('.section').each(function(){
+		// console.log(typeof($(this).attr("title")));
+		if ( $(this).attr("title") === undefined ){
+			console.log($(this).attr("title"))
+			$(this).attr("title", "No Data");
+		}
 	});
 	
 	
-}
-
-function findDayPosition(days_array,day) {
-	var position = 0;
-	for (var i = days_array.length - 1; i >= 0; i--) {
-		if (days_array[i]==day) {
-			position = i;
-		}
-	}
-	return position;
 }
 
 function getSeatingArea(id, items){
@@ -185,7 +173,6 @@ function loadSlider() {
 		$.each(data, function (i, item) {
 			if (prevDate != item.date) {
 				seasonDays.push(item.date);
-				prevDate=item.date;
 			}
 		});
 	});
@@ -251,15 +238,12 @@ function setInfos(newDate) {
 function getSeasonSeatingProfile() {
 	current_season_seating_profile_ids = new Array();
 	$.getJSON('http://api2.cfregisters.org/seating_category_profile?start_date=lte.' + current_season_min + '&end_date=gte.' + current_season_max + '&order=id.asc', function(data) {
-
 		prev_theater=current_theater;
 		current_theater=data[0].period;
 		$.each(data, function (i, item) {
 			current_season_seating_profile_ids.push(data[i].id);
-			console.log("SEating profile " + data[i].id);
 		});
 	});
-
 }
 
 function getSeason(newSeason) {
@@ -277,28 +261,23 @@ function getSeason(newSeason) {
 
 function setDate(date) {
 	var evening_totals = new Array();
-		for (var i = 0; i < current_season_seating_profile_ids.length; i++) {
+	for (var i = 0; i < current_season_seating_profile_ids.length; i++) {
 		var temp_obj = new Object();
 		temp_obj.id = current_season_seating_profile_ids[i];
-		temp_obj.total = null;
+		temp_obj.total = 0;
 		evening_totals.push(temp_obj);
-		}
-	
+	}
 	var prev_id = 0;
-
 
 	$.getJSON('http://api2.cfregisters.org/ticket_sales_by_profile?date=eq.' + date + '&order=seating_category_profile_id.asc', function(data) {
 		$.each(data, function (i, item) {
-
 			for (var j = 0; j < evening_totals.length; j++) {
+
 				if (evening_totals[j].id == parseInt(data[i].seating_category_profile_id)) {
 					evening_totals[j].total += parseInt(data[i].recorded_total_l);
 					evening_totals[j].name = data[i].category;
 				}
 			}
-
-
-
 		});
 	});
 	
@@ -307,9 +286,6 @@ function setDate(date) {
 	// 	evening_totals[j].total_perc = evening_totals[j].total/current_season_seating_profile_max.id[evening_totals[j].id].total;
 	// }
 	// alert(JSON.stringify(evening_totals));
-	
-
-
 	heatmapFireworks(evening_totals);
 	
 }
@@ -632,7 +608,7 @@ function stgermain(){
 		.startAngle(1 * Math.PI)
 		.endAngle(0 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section troisiemeloge arc 75")
+		.attr("class", "section troisiemeloge arc 75 78")
 		.attr("d", arc_3r)
 		.attr("transform", "translate(" + width * .625 + "," + height / 2 + ")");
 
@@ -642,7 +618,7 @@ function stgermain(){
 		.startAngle(1 * Math.PI)
 		.endAngle(0 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section deuxiemeloge arc 75")
+		.attr("class", "section deuxiemeloge arc 75 77")
 		.attr("d", arc_2r)
 		.attr("transform", "translate(" + width * .625 + "," + height / 2 + ")");
 
@@ -652,7 +628,7 @@ function stgermain(){
 		.startAngle(1 * Math.PI)
 		.endAngle(0 * Math.PI);
 	heatmap.append("path")
-		.attr("class", "section premiereloge arc 74")
+		.attr("class", "section premiereloge arc 74 76")
 		.attr("d", arc_1r)
 		.attr("transform", "translate(" + width * .625 + "," + height / 2 + ")");
 
@@ -661,42 +637,42 @@ function stgermain(){
 		.attr("y1", height / 2 - (measure / 2.8175))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 - (measure / 2.8175))
-		.attr("class", "section troisiemeloge line 75")
+		.attr("class", "section troisiemeloge line 75 78")
 		.attr("stroke-width", measure * .03);
 	var loge_3rb = heatmap.append("line")
 		.attr("x1", width * .625)
 		.attr("y1", height / 2 + (measure / 2.8175))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 + (measure / 2.8175))
-		.attr("class", "section troisiemeloge line 75")
+		.attr("class", "section troisiemeloge line 75 78")
 		.attr("stroke-width", measure * .03);
 	var loge_2rt = heatmap.append("line")
 		.attr("x1", width * .625)
 		.attr("y1", height / 2 - (measure / 3.175))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 - (measure / 3.175))
-		.attr("class", "section deuxiemeloge line 75")
+		.attr("class", "section deuxiemeloge line 75 77")
 		.attr("stroke-width", measure * .03);
 	var loge_2rb = heatmap.append("line")
 		.attr("x1", width * .625)
 		.attr("y1", height / 2 + (measure / 3.175))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 + (measure / 3.175))
-		.attr("class", "section deuxiemeloge line 75")
+		.attr("class", "section deuxiemeloge line 75 77")
 		.attr("stroke-width", measure * .03);
 	var loge_1rt = heatmap.append("line")
 		.attr("x1", width * .625)
 		.attr("y1", height / 2 - (measure / 3.635))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 - (measure / 3.635))
-		.attr("class", "section premiereloge line 74")
+		.attr("class", "section premiereloge line 74 76")
 		.attr("stroke-width", measure * .03);
 	var loge_1rb = heatmap.append("line")
 		.attr("x1", width * .625)
 		.attr("y1", height / 2 + (measure / 3.635))
 		.attr("x2", width * .25)
 		.attr("y2", height / 2 + (measure / 3.635))
-		.attr("class", "section premiereloge line 74")
+		.attr("class", "section premiereloge line 74 76")
 		.attr("stroke-width", measure * .03);
 
 	var amphitheater_4e = heatmap.append("line")
@@ -733,7 +709,7 @@ function stgermain(){
 		.attr("y", height / 2 - (measure * .24))
 		.attr("width", width * .245)
 		.attr("height", measure / 2 - (measure * .02))
-		.attr("class", "section parterre rect 73");
+		.attr("class", "section parterre rect 73 81");
 
 	var front_3 = heatmap.append("line")
 		.attr("x1", width * .31)
