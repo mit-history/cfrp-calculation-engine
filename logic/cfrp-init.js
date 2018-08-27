@@ -2,6 +2,8 @@ $.ajaxSetup({
 	async: false
 });
 
+var visitCode;
+
 
 function isValidDate(dateString) {
 	var regEx = /^\d{4}-\d{2}-\d{2}$/;
@@ -89,7 +91,67 @@ $("body").css("opacity","1");
 
 		// test if there is a performance at this date
 		
-	});
+		});
+
+		//change venues
+		$("#chv_guenegaud").on("click", function (e) {
+			theLoad();
+			dateChange("1680-04-30");
+			theUnload();
+		});
+		$("#chv_fsgpI").on("click", function (e) {
+			theLoad();
+			dateChange("1689-04-18");
+			theUnload();
+		});
+		$("#chv_fsgpII").on("click", function (e) {
+			theLoad();
+			dateChange("1760-04-14");
+			theUnload();
+		});
+		$("#chv_tuileries").on("click", function (e) {
+			theLoad();
+			dateChange("1770-04-23");
+			theUnload();
+		});
+		$("#chv_odeon").on("click", function (e) {
+			theLoad();
+			dateChange("1782-04-09");
+			theUnload();
+		});
 
 
+		//+1/-1 slider
+		$("#onedayless").on("click", function (e) { 
+			theLoad();
+			slider.noUiSlider.set(parseInt(slider.noUiSlider.get())-1);
+			dateChange(current_season_days[parseInt(slider.noUiSlider.get())]);
+			$("#dayDate").val(current_season_days[parseInt(slider.noUiSlider.get())]);
+			theUnload();
+		});
+		$("#onedaymore").on("click", function (e) { 
+			theLoad();
+			slider.noUiSlider.set(parseInt(slider.noUiSlider.get())+1);
+			dateChange(current_season_days[parseInt(slider.noUiSlider.get())]);
+			$("#dayDate").val(current_season_days[parseInt(slider.noUiSlider.get())]);
+			theUnload();
+		});
+
+
+		//VISITS
+		$("#visit_stop").on("click", function (e) {
+			alert(visitCode);
+			clearInterval(visitCode);
+		});
+
+		$("#season_visit").on("click", function (e) { 
+			// Warning : it is still possible to start multiple overlapping intervals 
+			visitCode = setInterval(function() {
+				theLoad();
+				slider.noUiSlider.set(parseInt(slider.noUiSlider.get())+1);
+				dateChange(current_season_days[parseInt(slider.noUiSlider.get())]);
+				$("#dayDate").val(current_season_days[parseInt(slider.noUiSlider.get())]);
+				theUnload();
+			},4000); //the stop only work if loading can occur before the entier timeout pass. 
+		});
 	});

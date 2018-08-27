@@ -5,9 +5,13 @@ var current_season_max;
 var current_season_days;
 
 var current_season_seating_figures;
+var current_season_seating_profile_ids;
 
 var current_theater = 'Odéon';
 var prev_theater;
+var reset_date=true; //in case of season change with a date;
+
+var slider;
 
 
 //UI actions
@@ -17,10 +21,13 @@ function dateChange(newDate) {
 		if (data.length > 0) {
 			
 			if (newDate < current_season_min || newDate > current_season_max) {
+				
 				seasonChange(seasonFinder(newDate));
 			}
 			setInfos(newDate);
 			setDate(newDate);
+			slider.noUiSlider.set(findDayPosition(current_season_days,newDate));
+
 
 			$("html").css("cursor", "default");
 		} else {
@@ -35,8 +42,12 @@ function seasonChange(newSeason) {
 	//need input control
 	$("html").css("cursor", "wait");
 	getSeason(newSeason);
-	dateChange(current_season_min);
-	$("#dayDate").val(current_season_min);
+	
+	if (reset_date) {
+		dateChange(current_season_min);
+		$("#dayDate").val(current_season_min);
+	} 
+	
 	$("html").css("cursor", "default");
 }
 
@@ -91,21 +102,31 @@ function heatmapFireworks(evening_totals) {
 	var heatmapData = evening_totals;
 	var currentName = "";
 	$('.measurelines').remove();
-	console.log(heatmapData);
+	console.log("HEATMAPDATA : " + heatmapData);
 	$(heatmapData).each(function(x,y){
 		var seatingStats = getSeatingArea(y.id, current_season_seating_figures);
-		
-		if (typeof(seatingStats) != 'undefined'){
+
+		if (seatingStats == null) {
+			//better : 
+			seatingStats = new Object();
+			seatingStats.min = 0; seatingStats.max = 0; seatingStats.avg = 0; seatingStats.stddev = 0; y.name="non renseigné"; 
+
+		}
 
 		var minStats = seatingStats["min"];
-		var maxStats = seatingStats["max"];			
+		var maxStats = seatingStats["max"];
 		// color = d3.scaleLinear().range(["#0100FE", "#FD0000"]).domain([minStats, maxStats]);
-		color = d3.scaleLinear().range(["#0100FE", "#FD0000"]).domain([seatingStats["avg"] - (seatingStats["dev"] * 1.5), seatingStats["avg"] + (seatingStats["dev"] * 1.5)]);
+		if (minStats == 0 && maxStats == 0){
+			color = (function(){return '#159489'});
+		}
+		else {
+			color = d3.scaleLinear().range(["#0100FE", "#FD0000"]).domain([seatingStats["avg"] - (seatingStats["dev"] * 1.5), seatingStats["avg"] + (seatingStats["dev"] * 1.5)]);
+		}
 		thisTotal = y.total;
 		console.log("(((" + y.name + ")))", "minimum: " + minStats, "average: " + seatingStats["avg"], "maximum: " + maxStats, "standard deviation: " + seatingStats["dev"], "total for this day: " + thisTotal);
 		currentName = y.name;
 
-		if (y.name != undefined){
+		if (y.name != undefined && y.name != "non renseigné"){
 			var lineAmount = (((thisTotal - seatingStats["avg"]) / seatingStats["dev"]) * -100) + 150;
 			if (lineAmount > 300){
 				lineAmount = 300;
@@ -141,19 +162,27 @@ function heatmapFireworks(evening_totals) {
 				$(this).css("stroke", color(thisTotal));
 			}
 		});
-	}
-	
 	});
 
 	$('.section').each(function(){
 		// console.log(typeof($(this).attr("title")));
 		if ( $(this).attr("title") === undefined ){
 			console.log($(this).attr("title"))
-			$(this).attr("title", "No Data");
+			$(this).attr("title", "non renseigné");
 		}
 	});
 	
 	
+}
+
+function findDayPosition(days_array,day) {
+	var position = 0;
+	for (var i = days_array.length - 1; i >= 0; i--) {
+		if (days_array[i]==day) {
+			position = i;
+		}
+	}
+	return position;
 }
 
 function getSeatingArea(id, items){
@@ -173,6 +202,7 @@ function loadSlider() {
 		$.each(data, function (i, item) {
 			if (prevDate != item.date) {
 				seasonDays.push(item.date);
+				prevDate=item.date;
 			}
 		});
 	});
@@ -188,7 +218,7 @@ function loadSlider() {
 
 	});*/
 
-	var slider = document.getElementById('slider');
+	slider = document.getElementById('slider');
 
 	try {
 		slider.noUiSlider.destroy();
@@ -238,12 +268,15 @@ function setInfos(newDate) {
 function getSeasonSeatingProfile() {
 	current_season_seating_profile_ids = new Array();
 	$.getJSON('http://api2.cfregisters.org/seating_category_profile?start_date=lte.' + current_season_min + '&end_date=gte.' + current_season_max + '&order=id.asc', function(data) {
+
 		prev_theater=current_theater;
 		current_theater=data[0].period;
 		$.each(data, function (i, item) {
 			current_season_seating_profile_ids.push(data[i].id);
+			console.log("SEating profile " + data[i].id);
 		});
 	});
+
 }
 
 function getSeason(newSeason) {
@@ -261,23 +294,28 @@ function getSeason(newSeason) {
 
 function setDate(date) {
 	var evening_totals = new Array();
-	for (var i = 0; i < current_season_seating_profile_ids.length; i++) {
+		for (var i = 0; i < current_season_seating_profile_ids.length; i++) {
 		var temp_obj = new Object();
 		temp_obj.id = current_season_seating_profile_ids[i];
-		temp_obj.total = 0;
+		temp_obj.total = null;
 		evening_totals.push(temp_obj);
-	}
+		}
+	
 	var prev_id = 0;
+
 
 	$.getJSON('http://api2.cfregisters.org/ticket_sales_by_profile?date=eq.' + date + '&order=seating_category_profile_id.asc', function(data) {
 		$.each(data, function (i, item) {
-			for (var j = 0; j < evening_totals.length; j++) {
 
+			for (var j = 0; j < evening_totals.length; j++) {
 				if (evening_totals[j].id == parseInt(data[i].seating_category_profile_id)) {
 					evening_totals[j].total += parseInt(data[i].recorded_total_l);
 					evening_totals[j].name = data[i].category;
 				}
 			}
+
+
+
 		});
 	});
 	
@@ -286,6 +324,9 @@ function setDate(date) {
 	// 	evening_totals[j].total_perc = evening_totals[j].total/current_season_seating_profile_max.id[evening_totals[j].id].total;
 	// }
 	// alert(JSON.stringify(evening_totals));
+	
+
+
 	heatmapFireworks(evening_totals);
 	
 }
