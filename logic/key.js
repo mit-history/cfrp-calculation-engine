@@ -21,12 +21,17 @@ var legend = key.append("defs")
 
 legend.append("stop")
 	.attr("offset", "0%")
-	.attr("stop-color", "#FD0000")
+	.attr("stop-color", "#011D56")
+	.attr("stop-opacity", 1);
+
+legend.append("stop")
+	.attr("offset", "50%")
+	.attr("stop-color", "#25959E")
 	.attr("stop-opacity", 1);
 
 legend.append("stop")
 	.attr("offset", "100%")
-	.attr("stop-color", "#0100FE")
+	.attr("stop-color", "#FFFFDB")
 	.attr("stop-opacity", 1);
 
 key.append("rect")

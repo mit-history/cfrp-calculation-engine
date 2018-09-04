@@ -8,11 +8,13 @@
 	border: 1px solid #ACD8CE;
 	display: block;
 	height: 65%;
-	min-height: 65%;
+	min-height: 500px;
 }
 
 .visualization {
-	margin: 10px;
+/*	margin-top: 10px;
+	background-color: white;
+	width: 95%;*/
 }
 
 .section {

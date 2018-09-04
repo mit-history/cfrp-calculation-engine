@@ -13,8 +13,8 @@ var reset_date=true; //in case of season change with a date;
 
 var slider;
 
-
 //UI actions
+
 
 function dateChange(newDate) {
 	$.getJSON('http://api2.cfregisters.org/registers?date=eq.' + newDate, function(data) {
@@ -102,7 +102,8 @@ function heatmapFireworks(evening_totals) {
 	var heatmapData = evening_totals;
 	var currentName = "";
 	$('.measurelines').remove();
-	console.log("HEATMAPDATA : " + heatmapData);
+	$('.measurecircles').remove();
+	// console.log("HEATMAPDATA : " + heatmapData);
 	$(heatmapData).each(function(x,y){
 		var seatingStats = getSeatingArea(y.id, current_season_seating_figures);
 
@@ -120,10 +121,12 @@ function heatmapFireworks(evening_totals) {
 			color = (function(){return '#159489'});
 		}
 		else {
-			color = d3.scaleLinear().range(["#0100FE", "#FD0000"]).domain([seatingStats["avg"] - (seatingStats["dev"] * 1.5), seatingStats["avg"] + (seatingStats["dev"] * 1.5)]);
+			// color = d3.scaleLinear().range(["#0100FE", "#FD0000"]).domain([seatingStats["avg"] - (seatingStats["dev"] * 1.5), seatingStats["avg"] + (seatingStats["dev"] * 1.5)]);
+			color = d3.scaleSequential(d3.interpolateYlGnBu).domain([seatingStats["avg"] - (seatingStats["dev"] * 1.5), seatingStats["avg"] + (seatingStats["dev"] * 1.5)]);
+
 		}
 		thisTotal = y.total;
-		console.log("(((" + y.name + ")))", "minimum: " + minStats, "average: " + seatingStats["avg"], "maximum: " + maxStats, "standard deviation: " + seatingStats["dev"], "total for this day: " + thisTotal);
+		// console.log("(((" + y.name + ")))", "minimum: " + minStats, "average: " + seatingStats["avg"], "maximum: " + maxStats, "standard deviation: " + seatingStats["dev"], "total for this day: " + thisTotal);
 		currentName = y.name;
 
 		if (y.name != undefined && y.name != "non renseigné"){
@@ -137,7 +140,7 @@ function heatmapFireworks(evening_totals) {
 
 			var getKey = d3.select(".legendsvg");
 			getKey.append("line")
-				.attr("x1", 30)
+				.attr("x1", 40)
 				.attr("y1", lineAmount)
 				.attr("x2", 81)
 				.attr("y2", lineAmount)
@@ -146,7 +149,16 @@ function heatmapFireworks(evening_totals) {
 				.attr("class", "measurelines")
 				.attr("title", currentName + ": " + thisTotal + " l.")
 				.attr("stroke", color(thisTotal))
-				.attr("transform", "translate(0,10)");	
+				.attr("transform", "translate(0,10)");
+			getKey.append("circle")
+				.attr("cx", 40)
+				.attr("cy", lineAmount + 10)
+				.attr("r", 3)
+				.attr("fill", color(thisTotal))
+				.attr("stroke", "rgba(0,0,0,.5)")
+				.attr("class", "measurecircles")
+				.attr("title", currentName + ": " + thisTotal + " l.")
+				.attr("cursor", "pointer");
 		}
 
 
@@ -167,7 +179,7 @@ function heatmapFireworks(evening_totals) {
 	$('.section').each(function(){
 		// console.log(typeof($(this).attr("title")));
 		if ( $(this).attr("title") === undefined ){
-			console.log($(this).attr("title"))
+			// console.log($(this).attr("title"))
 			$(this).attr("title", "non renseigné");
 		}
 	});
@@ -208,15 +220,48 @@ function loadSlider() {
 	});
 	current_season_days = seasonDays;
 
-	/*$("#slider").slider({
+	var seasonslider = document.getElementById('seasonslider');
+	var slidercurrent = document.getElementById('slidercurrent');
+	var sliderstart = document.getElementById('sliderstart')
+	var sliderend = document.getElementById('sliderend')
+	var sliderlength = seasonslider.offsetWidth;
+	var sliderstartingval = Math.round(current_season_days.length/2);
 
-		max:current_season_days.length,
-		change: function(event,ui) {
-			dateChange(current_season_days[ui.value]);
-			$("#dayDate").val(current_season_days[ui.value]);
-		}
+	var play = document.getElementById('play');
+	var load = document.getElementById('load');	
+	var pause = document.getElementById('pause');
 
-	});*/
+	play.addEventListener('click', function(ui){
+		this.style.display = "none";
+		load.style.display = "inline-block";
+	});
+	pause.addEventListener('click', function(ui){
+		load.style.display = "none";
+		play.style.display = "inline-block";
+	});
+
+	seasonslider.setAttribute('min', 0);
+	seasonslider.setAttribute('max', current_season_days.length - 1);
+	seasonslider.setAttribute('value', sliderstartingval);
+	sliderstart.innerHTML = current_season_days[0];
+	sliderend.innerHTML = current_season_days[current_season_days.length-1];
+
+	slidercurrent.innerHTML = current_season_days[sliderstartingval];
+	slidercurrent.style.marginLeft = sliderstartingval + 40;
+
+	seasonslider.addEventListener('input', function(ui){
+		var g = this.value;
+		slidercurrent.innerHTML = current_season_days[g];
+		slidercurrent.style.marginLeft = ((g / current_season_days.length) * sliderlength) + 25;
+	});
+	seasonslider.addEventListener('mousedown', function(ui){
+		slidercurrent.style.visibility = 'visible';
+	});
+	seasonslider.addEventListener('mouseup', function(ui){
+		slidercurrent.style.visibility = 'hidden';
+	});
+	// document.getElementById('sliderstart').innerHTML = current_season_days[0];
+	// document.getElementById('sliderend').innerHTML = current_season_days[current_season_days.length - 1];
 
 	slider = document.getElementById('slider');
 
@@ -273,7 +318,7 @@ function getSeasonSeatingProfile() {
 		current_theater=data[0].period;
 		$.each(data, function (i, item) {
 			current_season_seating_profile_ids.push(data[i].id);
-			console.log("SEating profile " + data[i].id);
+			// console.log("Seating profile " + data[i].id);
 		});
 	});
 
@@ -331,9 +376,6 @@ function setDate(date) {
 	
 }
 
-function setScale() {
-
-}
 
 function drawTheater(theater){
 
@@ -373,7 +415,7 @@ function guenegaud(){
 	var heatmap = d3.select('#heatmap').append('svg')
 		.attr("width", width)
 		.attr("height", height)
-		.attr("transform", "scale(1.15,1.15)");;
+		.attr("transform", "scale(1.15,1.15)");
 
 	var arc3v = heatmap.append("line")
 		.attr("x1", width * .8)
@@ -1128,27 +1170,21 @@ function odeon(){
 
 $(function() {
     $( document ).tooltip();
+
+    for (i=1680; i<1793; i++){
+		var option = document.createElement("option");
+		option.text = parseInt(i) + "-" + parseInt(i + 1);
+		option.value = i;
+		var select = document.getElementById("seasonpicker");
+		select.appendChild(option);    	
+    }
+
+    $('input[name="customdate"]').change(function() {
+
+        var valuefirstone = $(this).val();
+        console.log(valuefirstone);
+
+    });
+    
 });
-
-// var classname;
-// var currentColor;
-// $(document).on("mouseover", ".section", function(){
-// 		classname = $(this).attr("class").split(" ")[1];
-// 		currentColor = $(this).attr("data-color");
-// 		highlight(classname, "gold");
-// 	})
-// 	.mouseout(function(){
-// 		highlight(classname, "#159489");
-// 	});
-
-
-// function highlight(selector, color){
-
-//     var elements = $("." + selector);    
-//     for (var i = 0; i < elements.length; i++) {
-//         elements[i].style.fill = color;
-//         elements[i].style.stroke = color;
-//     }
-// }
-
 

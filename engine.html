@@ -1,104 +1,150 @@
+<!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="styles/framework/normalize.css">
-	<link rel="stylesheet" href="styles/framework/skeleton.css">
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="styles/milligram.min.css">
+	<link rel="stylesheet" href="styles/jquery-ui.css">
+	<link rel="stylesheet" href="styles/navigation.css">
 	<link rel="stylesheet" type="text/css" href="styles/nouislider.css">
 	<link rel="stylesheet" href="styles/headers.css">
 	<link rel="stylesheet" href="styles/engine.css">
 	<link rel="stylesheet" href="styles/theaters.css">
-	<link rel="stylesheet" href="fancybox/dist/jquery.fancybox.css"></script>
+	<link rel="stylesheet" href="fancybox/dist/jquery.fancybox.css">
 	<script src="logic/jquery-3.2.1.min.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="logic/jquery-ui.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles/heatmap-styles.css">
 	<script src="logic/d3.min.js"></script>
 	<script src="logic/key.js" defer></script>
 	<script src="logic/nouislider.js"></script>
 	<script type="text/javascript" src="logic/cfrp-engine.js"></script>
 	<script type="text/javascript" src="logic/cfrp-init.js"></script>
-	
+	<script src="logic/d3-scale-chromatic.v1.min.js"></script>
+
 </head>
 
 <body style="opacity: 0.5;">
+
 	<div class="row topbar">
-		<div class="twelve columns topbar-overlay"></div>
-		<div class="buttons info"><a data-fancybox="iframe" data-src="about.html" data-type="iframe">about</a></div>
+		<div class="column topbar-overlay"></div>
+		<div class="buttons info">
+			<a data-fancybox="iframe" data-src="about.html" data-type="iframe">about</a>
+		</div>
 		<div class="buttons about">how to use</div>
 	</div>
 
 	<div class="row title">
-		<div class="twelve columns">
+		<div class="column">
 			<img src="img/cfrp-logo-top-nav.png" alt="cfrp logo" class="logo">
 			<h1>Comédie-Française Registers Project: Interactive Seating Charts</h1>
 		</div>		
 	</div>
 
-	<div class="row heatmap-chooser">
+	<div class="row" id="nav">
 
-		<div class="three columns">
+		<div id="theaterselector" class="column">
+	        <select name="theaters" id="theaterpicker">
+	        	<option>Hôtel Guénégaud (1680-1689)</option>
+	        	<option>Salle de la rue FSGP 1 (1689-1760)</option>
+	        	<option>Salle de la rue FSGP 2 (1760-1770)</option>
+	        	<option>Salle des Machines, Palais des Tuileries (1770-1782)</option>
+	        	<option>Théâtre de l'Odéon (1782-1793)</option>
+	        </select>
+	       	<label>VIEW THEATER</label>
+		</div>
+
+	    <div id="seasonselector" class="column">
+	        <select name="seasons" id="seasonpicker"></select>
+	       	<label>SEARCH BY SEASON</label>
+	    </div>
+
+		<div id="dateselector" class="column">
+		    <input type="date" id="start" name="customdate" id="customdate" value="1680-04-30" min="1680-04-30" max="1792-03-26" />
+	        <label for="start">SEARCH BY DATE</label>
+		</div>
+
+		<div id="animationselector" class="column">
+
+			<div id="animationicons">
+
+				<ul>
+					<li><svg id="play" xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="25px" viewBox="0 0 256 256" xml:space="preserve"><switch><foreignObject requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/" x="0" y="0" width="1" height="1"></foreignObject><g i:extraneous="self"><polygon points="193.1,128 62.9,206.9 62.9,128 62.9,49.1"></polygon></g></switch></svg></li>
+
+					<li><svg id="load" version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" xml:space="preserve"><path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="2s" repeatCount="indefinite"/></path></svg></li>
+
+					<li><svg id="pause" xmlns:x="http://ns.adobe.com/Extensibility/1.0/" width="25px" height="25px" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 256 256" xml:space="preserve"><switch><foreignObject requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/" x="0" y="0" width="1" height="1"></foreignObject><g i:extraneous="self"><g><rect x="64.2" y="49" width="54.3" height="158"></rect><rect x="137.5" y="49" width="54.3" height="158"></rect></g></g></switch></svg></li>
+
+				</ul>
+
+
+				<label>ANIMATE DAYS</label>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row heatmap-chooser" style="visibility: hidden">
+
+		<div class="column">
+
 			<span id="chv_guenegaud">1680-1689: Hôtel Guénégaud</span><br/>
 			<span id="chv_fsgpI">1689-1760: Salle de la rue FSGP 1</span><br/>
 			<span id="chv_fsgpII">1760-1770: Salle de la rue FSGP 2</span><br/>
 			<span id="chv_tuileries">1770-1782: Salle des Machines, Palais des Tuileries</span><br/>
 			<span id="chv_odeon">1782-1793: Théâtre de l’Odéon</span>
 
-
-
 		</div>
 
-		<div class="three columns">
-		<div class="season" style="visibility: hidden;">
-			<input type="text" id="season1"/> – <input type="text" id="season2"/>
-		</div>
-		</div>
-
-		<div class="three columns">
-		<div class="slider-box">
-			<span id="onedayless">-</span><div id="slider"></div><span id="onedaymore">+</span>
-		</div> 
+		<div class="column">
+			<div class="season" style="visibility: hidden;">
+				<input type="text" id="season1"/ style="visibility:hidden"><input type="text" id="season2"/ style="visibility:hidden">
+			</div>
 		</div>
 
-		<div class="three columns">
-		<div class="date">
-			<input type="text" id="dayDate"/>
-		</div>
+		<div class="column">
+			<div class="slider-box">
+				<span id="onedayless">-</span><div id="slider"></div><span id="onedaymore">+</span>
+			</div> 
 		</div>
 
-		<div class="one column"><span id="season_visit">Visit season</span> - <span id="visit_stop">Stop</span></div>
+		<div class="column">
+			<div class="date">
+				<input type="text" id="dayDate"/>
+			</div>
+		</div>
+
+		<div class="column">
+			<span id="season_visit">Visit season</span> - <span id="visit_stop">Stop</span>
+		</div>
 
 	</div>
 
 	<div class="row heatmap-infodis">
-		<div class="three columns"> </div>
-		<div class="eight columns">
+		<div class="column column-20"><div class="theater"></div></div>
+		<div class="column column-80">
 <!-- 			<img src="img/RedRibbon.png" width="200"/> -->
-			<div class="theater">
-			</div>
-			<div class="play"> 
-			</div>
+			
+			<div class="play"></div>
 		</div>
-	</div>
-	
-	
-
-
 	</div>
 
 
 
 
 	<div class="row visualization">
-		<div class="one column"></div>
-		<div class="two columns">
-			<div id="legend"></div>
+		<div class="column column-20" id="legend">
 		</div>
-		<div class="eight columns">
-			<div id="heatmap"></div>
+		<div class="column column" id="heatmap">
 		</div>
-		<div class="one column"></div>
 	</div>
 
+	<div class="row" id="sliderrow">
+		<div class="column column-20" id="sliderstart"></div>
+			<div id="dayselector" class="column">
+				<input id="seasonslider" type="range">
+				<label id="slidercurrent"></label>
+			</div>
+		<div class="column column-20" id="sliderend"></div>
+	</div>
 
 </body>
 

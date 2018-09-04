@@ -1,3 +1,7 @@
+body {
+	margin: 0px;
+	width: 100%;
+}
 
 input, .date, .play {
 	font-family: "MuseoSans300", sans-serif;
@@ -7,18 +11,29 @@ input, .date, .play {
 	font-family: "Museo500", serif;
 }
 
+#legend {
+	display: block;
+	margin: auto;
+}
+
 #legend::before {
-	content: 'Ventes importantes';
+	content: 'VENTES IMPORTANTES';
 	float: top;
 	font-size: 10px;
-	margin-left: 25px;
-	margin-top: -10px;
+	margin-left: 50%;
+	margin-top: 10px;
 }
 
 #legend::after {
-	content: 'Ventes faibles';
+	content: 'VENTES FAIBLES';
 	display: block;
+	float: bottom;
 	font-size: 10px;
-	margin-left: 30px;
+	margin-left: 50%;
 	margin-top: 10px;
+}
+
+.legendsvg {
+	display: block;
+	margin: auto;
 }

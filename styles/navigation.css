@@ -1,0 +1,218 @@
+
+
+#nav .column, #nav .columns{
+	border-right: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+	padding-top: 15px;
+	margin-bottom: 15px;
+
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+/*    background: url(../img/calendar.svg) no-repeat;*/
+    border-width: thin;
+}
+
+input[type="date"]::-webkit-clear-button {
+    display: none;
+}
+
+input[type="date"] {
+	border-radius: 0;
+	margin-bottom: 0px;
+	width: 50%;
+}
+
+label {
+	display: block;
+	font-size: 10px;
+	font-weight: 200;
+	margin: auto;
+}
+
+input {
+	width: 50%;
+}
+
+select {
+/*	background: #FFF url(../img/calendar.svg) right center no-repeat;*/
+	background-size: 20px;
+	background-position: right 5px top 5px;
+	border-radius: 0;
+	display: block;
+	font-size: 10px;
+	margin: auto;
+	height: 30px;
+	line-height: normal;
+	-webkit-appearance: none;
+	width: 50%;
+	border-width: thin;
+}
+
+select::-webkit-picker-indicator {
+	visible: hidden;
+}
+
+#seasonpicker {
+	background: #FFF url(../img/ticket.svg) right center no-repeat;
+	background-size: 20px;
+	background-position: right 5px top 3px;
+	height: 30px;
+}
+
+#theaterpicker {
+	background: #FFF url(../img/theater.svg) right center no-repeat;
+	background-size: 20px;
+	background-position: right 5px top 3px;
+	height: 30px;
+}
+
+
+#seasonselector select {
+	display: block !important;
+	margin: auto !important;
+}
+
+#dateselector input {
+	display: block !important;
+	margin: auto !important;
+	line-height: normal;
+	height: 30px;
+	background: #FFF url(../img/calendar.svg) right center no-repeat;
+	background-size: 17px;
+	background-position: right 5px top 5px;
+}
+
+#seasonselector label {
+	text-align: center;
+}
+#dateselector label {
+	text-align: center;
+}
+
+
+input[type="range"] {
+	display: block;
+	-webkit-appearance:none;
+	width: 100%;
+	height: 20px;
+	background: linear-gradient(to right, #ADD1B9 0%, #ADD1B9 100%);
+	background-size: 100% 10px;
+	background-position:center;
+	background-repeat:no-repeat;
+	margin: auto;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	overflow: hidden;
+	outline: none;
+}
+
+input[type="range"]:first-of-type{
+/*  margin-top:30px;*/
+}
+
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:20px;
+  height:20px;
+  background:#DECBA2;
+  position:relative;
+  z-index:3;
+  box-shadow:0 0 5px 0 rgba(0,0,0,0.3);
+}
+
+input[type="range"]::-webkit-slider-thumb:after{
+  content:" ";
+  width:160px;
+  height:10px;
+  position:absolute;
+  z-index:1;
+  top:5px;
+  background: #ff5b32;
+  background: linear-gradient(to right, #f088fc 1%, #AC6CFF 70%);
+}
+
+#slidercurrent {
+	background-color: #DECBA2;
+	display: block;
+	font-size: 12;
+	padding: 5px;
+	text-align: center;
+	position: absolute;
+}
+
+
+#play, #pause, #load {
+	cursor: pointer;
+	display: inline-block;
+}
+#play:hover, #pause:hover {
+	fill: #DECBA2;
+}
+#play:active, #pause:active {
+	fill: #DDD;
+}
+
+#load {
+	display: none;
+}
+
+#theaterpicker select {
+	width: 100%;
+}
+
+#theaterselector select {
+	display: block;
+	margin: auto;
+}
+
+#theaterselector label {
+	text-align: center;
+}
+
+#animationselector {
+	display: block;
+	margin: auto;
+}
+
+
+#animationicons {
+	display: block;
+	margin: auto;
+	width: 50%;
+}
+
+#animationicons label {
+	text-align: center;
+}
+
+#animationicons ul {
+	text-align: center;
+	margin: 0;
+}
+
+#animationicons ul li {
+	display: inline-block;
+	list-style: none;
+	margin: 0;
+}
+
+#seasonslider {
+	margin: auto;
+}
+
+#sliderrow {
+	border-top: 1px solid #DDD;
+	margin-top: 12px;
+	padding-top: 12px;
+}
+#sliderstart, #sliderend {
+	font-size: 12px;
+	margin: auto;
+	text-align: center;
+}
+
+
