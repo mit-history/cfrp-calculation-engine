@@ -12,6 +12,7 @@ var prev_theater;
 var reset_date=true; //in case of season change with a date;
 
 var slider;
+var visitCode2;
 
 //UI actions
 
@@ -101,6 +102,7 @@ function heatmapFireworks(evening_totals) {
 	var thisTotal;
 	var heatmapData = evening_totals;
 	var currentName = "";
+
 	$('.measurelines').remove();
 	$('.measurecircles').remove();
 	// console.log("HEATMAPDATA : " + heatmapData);
@@ -260,6 +262,14 @@ function loadSlider() {
 	seasonslider.addEventListener('mouseup', function(ui){
 		slidercurrent.style.visibility = 'hidden';
 	});
+
+	// FOR CHRISTOPHE
+	seasonslider.addEventListener('change', function(ui){
+		var g = this.value;
+		dateChange(current_season_days[g]);
+		$("#dayDate").val(current_season_days[g]);
+		console.log("ui value: " + this.value + " current day: " + current_season_days[g]);
+	});	
 	// document.getElementById('sliderstart').innerHTML = current_season_days[0];
 	// document.getElementById('sliderend').innerHTML = current_season_days[current_season_days.length - 1];
 
@@ -937,7 +947,6 @@ function tuileries(){
 		.attr("y2", height / 2 - (measure * .22))
 		.attr("class", "section amphitheater line 85")
 		.attr("stroke-width", measure * .03);
-
 	var parterre = heatmap.append("rect")
 		.attr("x", width * .35)
 		.attr("y", height / 2 - (measure * .24))
@@ -1175,16 +1184,38 @@ $(function() {
 		var option = document.createElement("option");
 		option.text = parseInt(i) + "-" + parseInt(i + 1);
 		option.value = i;
-		var select = document.getElementById("seasonpicker");
+		var select = document.getElementById("whichSeason");
 		select.appendChild(option);    	
     }
 
-    $('input[name="customdate"]').change(function() {
+    $('#whichSeason').change(function(){
+    	var which = $(this).find(":selected").val();
+    	console.log("season: " + which + "-" + (parseInt(which)+1));
 
-        var valuefirstone = $(this).val();
-        console.log(valuefirstone);
-
+    	seasonChange(which + "-" + (parseInt(which)+1)); //1686-1688…
+    	//gets into kind of boucle
     });
-    
+    $('#whichTheater').change(function(){
+		var which = $(this).find(":selected").val();
+        console.log("theater: " + which);
+        dateChange(which);
+    });
+    $('input[name="whichDate"]').change(function() {
+        var which = $(this).val();
+        console.log("date: " + which);
+        dateChange(which); //change color a lot without producing new data in the console
+    });
+    $('#play').on('click', function(){
+    	visitCode2 = setInterval(function() {
+				//slider + 1
+			},4000); //the stop only work if loading can occur before the entier timeout pass. 
+    	console.log('play');
+    });
+    $('#pause').on('click', function(){
+    	console.log('pause');
+    	alert(visitCode2);
+		clearInterval(visitCode2);
+    });
+
 });
 
