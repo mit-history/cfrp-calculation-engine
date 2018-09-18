@@ -9,7 +9,7 @@ function isValidDate(dateString) {
 	var regEx = /^\d{4}-\d{2}-\d{2}$/;
 		if(!dateString.match(regEx)) return false;  // Invalid format // Invalid date (or this could be epoch)
 		return true;
-	}
+}
 
 function theLoad() {
 	$("body").css({ opacity: 0.5 });
@@ -22,9 +22,9 @@ function theUnload() {
 
 	$("document").ready(function () {
 
-		$("body").css("cursor","progress");
-
+		$("body").css("cursor", "progress");
 		seasonChange("1680-1681");
+		seasonslider.value = 0;
 
 
 // <<<<<<< HEAD
@@ -39,7 +39,7 @@ $("body").css("opacity","1");
 // >>>>>>> e7a06ed236dd91b3412765c318b3648a81ac65b0
 });
 	$(function () {
-		getSeasonMinMax('1680-1681');
+
 		$("#season1").on("change", function (e) {
 			reset_date=true;
 
@@ -131,7 +131,7 @@ $("body").css("opacity","1");
 		});
 		$("#onedaymore").on("click", function (e) { 
 			theLoad();
-			slider.noUiSlider.set(parseInt(slider.noUiSlider.get())+1);
+			// slider.noUiSlider.set(parseInt(slider.noUiSlider.get())+1);
 			dateChange(current_season_days[parseInt(slider.noUiSlider.get())]);
 			$("#dayDate").val(current_season_days[parseInt(slider.noUiSlider.get())]);
 			theUnload();
@@ -139,18 +139,23 @@ $("body").css("opacity","1");
 
 
 		//VISITS
-		$("#visit_stop").on("click", function (e) {
-			alert(visitCode);
+		$("#pause").on("click", function (e) {
+			console.log(visitCode);
 			clearInterval(visitCode);
 		});
 
-		$("#season_visit").on("click", function (e) { 
+		$("#play").on("click", function (e) { 
 			// Warning : it is still possible to start multiple overlapping intervals 
+			// Note: Intervals no longer overlappable (play button hides when running)
 			visitCode = setInterval(function() {
 				theLoad();
-				slider.noUiSlider.set(parseInt(slider.noUiSlider.get())+1);
-				dateChange(current_season_days[parseInt(slider.noUiSlider.get())]);
+				// slider.noUiSlider.set(parseInt(slider.noUiSlider.get())+1);
+				seasonslider.value = seasonslider.value + 1;
+				dateChange(current_season_days[seasonslider.value]);
+				// dateChange(current_season_days[parseInt(slider.noUiSlider.get())]);
 				$("#dayDate").val(current_season_days[parseInt(slider.noUiSlider.get())]);
+
+
 				theUnload();
 			},4000); //the stop only work if loading can occur before the entier timeout pass. 
 		});

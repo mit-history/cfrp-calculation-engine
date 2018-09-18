@@ -14,6 +14,10 @@ var reset_date=true; //in case of season change with a date;
 var slider;
 var visitCode2;
 
+var seasonslider;
+
+
+
 //UI actions
 
 
@@ -22,13 +26,13 @@ function dateChange(newDate) {
 		if (data.length > 0) {
 			
 			if (newDate < current_season_min || newDate > current_season_max) {
-				
 				seasonChange(seasonFinder(newDate));
 			}
 			setInfos(newDate);
 			setDate(newDate);
-			slider.noUiSlider.set(findDayPosition(current_season_days,newDate));
+			// slider.noUiSlider.set(findDayPosition(current_season_days,newDate));
 
+			currentDate.innerHTML = "<h6>Current Date: </h6>" + newDate;
 
 			$("html").css("cursor", "default");
 		} else {
@@ -102,6 +106,7 @@ function heatmapFireworks(evening_totals) {
 	var thisTotal;
 	var heatmapData = evening_totals;
 	var currentName = "";
+	console.log(heatmapData)
 
 	$('.measurelines').remove();
 	$('.measurecircles').remove();
@@ -222,10 +227,10 @@ function loadSlider() {
 	});
 	current_season_days = seasonDays;
 
-	var seasonslider = document.getElementById('seasonslider');
+
 	var slidercurrent = document.getElementById('slidercurrent');
-	var sliderstart = document.getElementById('sliderstart')
-	var sliderend = document.getElementById('sliderend')
+	var dateRange = document.getElementById('dateRange')
+	var currentDate = document.getElementById('currentDate')
 	var sliderlength = seasonslider.offsetWidth;
 	var sliderstartingval = Math.round(current_season_days.length/2);
 
@@ -245,8 +250,8 @@ function loadSlider() {
 	seasonslider.setAttribute('min', 0);
 	seasonslider.setAttribute('max', current_season_days.length - 1);
 	seasonslider.setAttribute('value', sliderstartingval);
-	sliderstart.innerHTML = current_season_days[0];
-	sliderend.innerHTML = current_season_days[current_season_days.length-1];
+	dateRange.innerHTML = "<h6>Date Range: </h6><span class='showDate'>" + current_season_days[0] + "</span>" + " — " + "<span class='showDate'>" + current_season_days[current_season_days.length-1] + "</span>";
+	currentDate.innerHTML = "<h6>Current Date: </h6>" + current_season_days[0];
 
 	slidercurrent.innerHTML = current_season_days[sliderstartingval];
 	slidercurrent.style.marginLeft = sliderstartingval + 40;
@@ -263,7 +268,7 @@ function loadSlider() {
 		slidercurrent.style.visibility = 'hidden';
 	});
 
-	// FOR CHRISTOPHE
+
 	seasonslider.addEventListener('change', function(ui){
 		var g = this.value;
 		dateChange(current_season_days[g]);
@@ -271,35 +276,33 @@ function loadSlider() {
 		console.log("ui value: " + this.value + " current day: " + current_season_days[g]);
 	});	
 	// document.getElementById('sliderstart').innerHTML = current_season_days[0];
-	// document.getElementById('sliderend').innerHTML = current_season_days[current_season_days.length - 1];
+	// document.getElementById('currentDate').innerHTML = current_season_days[current_season_days.length - 1];
 
-	slider = document.getElementById('slider');
+	// slider = document.getElementById('slider');
 
-	try {
-		slider.noUiSlider.destroy();
-	} catch(err) {}
+	// try {
+	// 	slider.noUiSlider.destroy();
+	// } catch(err) {}
 
-	noUiSlider.create(slider, {
-		start: 0,
-		step: 1,
-		connect: true,
-		range: {
-			'min': 0,
-			'max': current_season_days.length-1
-		}
-	});
+	// noUiSlider.create(slider, {
+	// 	start: 0,
+	// 	step: 1,
+	// 	connect: true,
+	// 	range: {
+	// 		'min': 0,
+	// 		'max': current_season_days.length-1
+	// 	}
+	// });
 
-	slider.noUiSlider.on('change', function(){
-		theLoad();
-		dateChange(current_season_days[parseInt(slider.noUiSlider.get())]);
-		$("#dayDate").val(current_season_days[parseInt(slider.noUiSlider.get())]);
-		theUnload();
-	});
+	// slider.noUiSlider.on('change', function(){
+	// 	theLoad();
+	// 	dateChange(current_season_days[parseInt(slider.noUiSlider.get())]);
+	// 	$("#dayDate").val(current_season_days[parseInt(slider.noUiSlider.get())]);
+	// 	theUnload();
+	// });
 }
 
-function renumberScales() {
 
-}
 
 function setInfos(newDate) {
 	//set the name of the theater, and the name of the plays. 
@@ -308,12 +311,17 @@ function setInfos(newDate) {
 	$.getJSON('http://api2.cfregisters.org/performances?date=eq.' + newDate, function(data) {
 		$.each(data, function (i, item) {
 			count++;
+			
+			$("#performance").html('');
+			$("#performance").append("<span id='theaterName'>Théâtre: </span>" + current_theater);
+			$("#performance").append("<span id='showName'>Performance: </span><i>" + item.title + "</i>");
+
 			if (i == 0) {
-				$(".play").html(item.author_name + ", <i>" + item.title + "</i>");
-			} else if (data.length == 2 || i==2) {
-				$(".play").append(" et " + item.author_name + ", <i>" + item.title + "</i>");
+				$("#performance").append("<span id='authorName'>Dramaturge: </span>" + item.author_name);
+			} else if (data.length == 2 || i == 2) {
+				$("#performance").append(" et " + item.author_name + ", ");
 			} else {
-				$(".play").append(", " + item.author_name + ", <i>" + item.title + "</i>");
+				$("#performance").append(", " + item.author_name + " ");
 			}
 		});
 	});
@@ -1178,6 +1186,8 @@ function odeon(){
 
 
 $(function() {
+
+	seasonslider = document.getElementById('seasonslider');	
     $( document ).tooltip();
 
     for (i=1680; i<1793; i++){
@@ -1207,14 +1217,32 @@ $(function() {
     });
     $('#play').on('click', function(){
     	visitCode2 = setInterval(function() {
+    		if (seasonslider.value != seasonslider.max){
+    			seasonslider.value = seasonslider.value + 1;
+    		}
 				//slider + 1
 			},4000); //the stop only work if loading can occur before the entier timeout pass. 
     	console.log('play');
     });
     $('#pause').on('click', function(){
     	console.log('pause');
-    	alert(visitCode2);
+    	console.log(visitCode2);
 		clearInterval(visitCode2);
+    });
+
+    $('#arrowleft').click(function(){
+    	if (seasonslider.value != 0){
+    		seasonslider.value = parseInt(seasonslider.value) - 1;
+    		dateChange(current_season_days[parseInt(seasonslider.value)]);
+    	}
+    });
+
+    $('#arrowright').click(function(){
+    	if (seasonslider.value != seasonslider.max){
+    		console.log(seasonslider.value, seasonslider.max, current_season_days);
+    		seasonslider.value = parseInt(seasonslider.value) + 1;
+    		dateChange(current_season_days[parseInt(seasonslider.value)]);
+    	}
     });
 
 });
