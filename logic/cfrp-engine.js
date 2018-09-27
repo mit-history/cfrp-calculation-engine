@@ -440,21 +440,21 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure * .16))
 		.attr("x2", width * .8)
 		.attr("y2", height / 2 + (measure * .16))
-		.attr("class", "section line 67")
+		.attr("class", "section line 67 72")
 		.attr("stroke-width", measure * .03);
 	var arc2v = heatmap.append("line")
 		.attr("x1", width * .77)
 		.attr("y1", height / 2 - (measure * .15))
 		.attr("x2", width * .77)
 		.attr("y2", height / 2 + (measure * .15))
-		.attr("class", "section line 66")
+		.attr("class", "section line 66 72")
 		.attr("stroke-width", measure * .03);
 	var arc1v = heatmap.append("line")
 		.attr("x1", width * .74)
 		.attr("y1", height / 2 - (measure * .14))
 		.attr("x2", width * .74)
 		.attr("y2", height / 2 + (measure * .14))
-		.attr("class", "section line 64")
+		.attr("class", "section line 64 71")
 		.attr("stroke-width", measure * .03);
 
 	var arc3v_t = heatmap.append("line")
@@ -462,21 +462,21 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure * .25))
 		.attr("x2", width * .8)
 		.attr("y2", height / 2 - (measure * .15))
-		.attr("class", "section line 67")
+		.attr("class", "section line 67 72")
 		.attr("stroke-width", measure * .03);
 	var arc2v_t = heatmap.append("line")
 		.attr("x1", width * .715)
 		.attr("y1", height / 2 - (measure * .22))
 		.attr("x2", width * .77)
 		.attr("y2", height / 2 - (measure * .14))
-		.attr("class", "section line 66")
+		.attr("class", "section line 66 72")
 		.attr("stroke-width", measure * .03);
 	var arc1v_t = heatmap.append("line")
 		.attr("x1", width * .7)
 		.attr("y1", height / 2 - (measure * .19))
 		.attr("x2", width * .74)
 		.attr("y2", height / 2 - (measure * .13))
-		.attr("class", "section line 64")
+		.attr("class", "section line 64 71")
 		.attr("stroke-width", measure * .03);
 
 	var arc3v_b = heatmap.append("line")
@@ -484,21 +484,21 @@ function guenegaud(){
 		.attr("y1", height / 2 + (measure * .25))
 		.attr("x2", width * .8)
 		.attr("y2", height / 2 + (measure * .15))
-		.attr("class", "section line 67")
+		.attr("class", "section line 67 72")
 		.attr("stroke-width", measure * .03);
 	var arc2v_b = heatmap.append("line")
 		.attr("x1", width * .715)
 		.attr("y1", height / 2 + (measure * .22))
 		.attr("x2", width * .77)
 		.attr("y2", height / 2 + (measure * .14))
-		.attr("class", "section line 66")
+		.attr("class", "section line 66 72")
 		.attr("stroke-width", measure * .03);
 	var arc1v_b = heatmap.append("line")
 		.attr("x1", width * .7)
 		.attr("y1", height / 2 + (measure * .19))
 		.attr("x2", width * .74)
 		.attr("y2", height / 2 + (measure * .13))
-		.attr("class", "section line 64")
+		.attr("class", "section line 64 71")
 		.attr("stroke-width", measure * .03);
 
 
@@ -507,7 +507,7 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure / 3.33) - (measure * .04))
 		.attr("x2", width * .67)
 		.attr("y2", height / 2 - (measure / 3.66) - (measure * .04))
-		.attr("class", "section line 67")
+		.attr("class", "section line 67 72")
 		.attr("stroke-width", measure * .03);
 
 	var corner_2rt = heatmap.append("line")
@@ -515,7 +515,7 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure / 3.33))
 		.attr("x2", width * .67)
 		.attr("y2", height / 2 - (measure / 3.66))
-		.attr("class", "section line 66")
+		.attr("class", "section line 66 72")
 		.attr("stroke-width", measure * .03);
 
 	var corner_1rt = heatmap.append("line")
@@ -523,7 +523,7 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure / 3.33) + (measure * .04))
 		.attr("x2", width * .67)
 		.attr("y2", height / 2 - (measure / 3.66) + (measure * .04))
-		.attr("class", "section line 64")
+		.attr("class", "section line 64 71")
 		.attr("stroke-width", measure * .03);
 
 	var corner_1rb = heatmap.append("line")
@@ -531,7 +531,7 @@ function guenegaud(){
 		.attr("y1", height / 2 + (measure / 3.33) - (measure * .04))
 		.attr("x2", width * .67)
 		.attr("y2", height / 2 + (measure / 3.66) - (measure * .04))
-		.attr("class", "section line 64")
+		.attr("class", "section line 64 71")
 		.attr("stroke-width", measure * .03);
 
 	var corner_2rb = heatmap.append("line")
@@ -539,7 +539,7 @@ function guenegaud(){
 		.attr("y1", height / 2 + (measure / 3.33))
 		.attr("x2", width * .67)
 		.attr("y2", height / 2 + (measure / 3.66))
-		.attr("class", "section line 66")
+		.attr("class", "section line 66 72")
 		.attr("stroke-width", measure * .03);
 
 	var corner_3rb = heatmap.append("line")
@@ -547,7 +547,7 @@ function guenegaud(){
 		.attr("y1", height / 2 + (measure / 3.33) + (measure * .04))
 		.attr("x2", width * .67)
 		.attr("y2", height / 2 + (measure / 3.66) + (measure * .04))
-		.attr("class", "section line 67")
+		.attr("class", "section line 67 72")
 		.attr("stroke-width", measure * .03);
 
 	var box_3rt = heatmap.append("line")
@@ -555,7 +555,7 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure / 2.63) + (measure * .04))
 		.attr("x2", width * .17)
 		.attr("y2", height / 2 - (measure / 2.63) + (measure * .04))
-		.attr("class", "section line 67")
+		.attr("class", "section line 67 72")
 		.attr("stroke-width", measure * .03);
 
 	var box_2rt = heatmap.append("line")
@@ -563,7 +563,7 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure / 2.95) + (measure * .04))
 		.attr("x2", width * .17)
 		.attr("y2", height / 2 - (measure / 2.95) + (measure * .04))
-		.attr("class", "section line 66")
+		.attr("class", "section line 66 72")
 		.attr("stroke-width", measure * .03);		
 
 	var box_1rt = heatmap.append("line")
@@ -571,7 +571,7 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure / 3.33) + (measure * .04))
 		.attr("x2", width * .17)
 		.attr("y2", height / 2 - (measure / 3.33) + (measure * .04))
-		.attr("class", "section line 64")
+		.attr("class", "section line 64 71")
 		.attr("stroke-width", measure * .03);
 
 	var box_1rb = heatmap.append("line")
@@ -579,7 +579,7 @@ function guenegaud(){
 		.attr("y1", height / 2 + (measure / 3.33) - (measure * .04))
 		.attr("x2", width * .17)
 		.attr("y2", height / 2 + (measure / 3.33) - (measure * .04))
-		.attr("class", "section line 64")
+		.attr("class", "section line 64 71")
 		.attr("stroke-width", measure * .03);
 
 	var box_2rb = heatmap.append("line")
@@ -587,7 +587,7 @@ function guenegaud(){
 		.attr("y1", height / 2 + (measure / 2.95) - (measure * .04))
 		.attr("x2", width * .17)
 		.attr("y2", height / 2 + (measure / 2.95) - (measure * .04))
-		.attr("class", "section line 66")
+		.attr("class", "section line 66 72")
 		.attr("stroke-width", measure * .03);
 
 	var box_3rb = heatmap.append("line")
@@ -595,7 +595,7 @@ function guenegaud(){
 		.attr("y1", height / 2 + (measure / 2.63) - (measure * .04))
 		.attr("x2", width * .17)
 		.attr("y2", height / 2 + (measure / 2.63) - (measure * .04))
-		.attr("class", "section line 67")
+		.attr("class", "section line 67 72")
 		.attr("stroke-width", measure * .03);
 
 	var box_floor_2t = heatmap.append("line")
@@ -603,7 +603,7 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure / 3.81) + (measure * .04))
 		.attr("x2", width * .17)
 		.attr("y2", height / 2 - (measure / 3.81) + (measure * .04))
-		.attr("class", "section line 63")
+		.attr("class", "section line 63 71")
 		.attr("stroke-width", measure * .03);
 
 	var box_floor_1t = heatmap.append("line")
@@ -611,7 +611,7 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure / 4.45) + (measure * .04))
 		.attr("x2", width * .17)
 		.attr("y2", height / 2 - (measure / 4.45) + (measure * .04))
-		.attr("class", "section line 63")
+		.attr("class", "section line 63 71")
 		.attr("stroke-width", measure * .03);
 
 	var box_floor_1b = heatmap.append("line")
@@ -619,7 +619,7 @@ function guenegaud(){
 		.attr("y1", height / 2 + (measure / 3.81) - (measure * .04))
 		.attr("x2", width * .17)
 		.attr("y2", height / 2 + (measure / 3.81) - (measure * .04))
-		.attr("class", "section line 63")
+		.attr("class", "section line 63 71")
 		.attr("stroke-width", measure * .03);
 
 	var box_floor_2b = heatmap.append("line")
@@ -627,7 +627,7 @@ function guenegaud(){
 		.attr("y1", height / 2 + (measure / 4.45) - (measure * .04))
 		.attr("x2", width * .17)
 		.attr("y2", height / 2 + (measure / 4.45) - (measure * .04))
-		.attr("class", "section line 63")
+		.attr("class", "section line 63 71")
 		.attr("stroke-width", measure * .03);
 
 	var floor_vertical = heatmap.append("line")
@@ -635,7 +635,7 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure / 4.05))
 		.attr("x2", width * .4)
 		.attr("y2", height / 2 + (measure / 4.05))
-		.attr("class", "section line 63")
+		.attr("class", "section line 63 71")
 		.attr("stroke-width", measure * .03);
 
 	var ampitheater_r6 = heatmap.append("line")
@@ -643,7 +643,7 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure / 7))
 		.attr("x2", width *  .62)
 		.attr("y2", height / 2 + (measure / 7))
-		.attr("class", "section line 68")
+		.attr("class", "section line 68 70")
 		.attr("stroke-width", measure * .03);
 
 	var ampitheater_r5 = heatmap.append("line")
@@ -651,7 +651,7 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure / 6))
 		.attr("x2", width *  .59)
 		.attr("y2", height / 2 + (measure / 6))
-		.attr("class", "section line 68")
+		.attr("class", "section line 68 70")
 		.attr("stroke-width", measure * .03);
 
 	var ampitheater_r4 = heatmap.append("line")
@@ -659,7 +659,7 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure / 6))
 		.attr("x2", width *  .56)
 		.attr("y2", height / 2 + (measure / 6))
-		.attr("class", "section line 68")
+		.attr("class", "section line 68 70")
 		.attr("stroke-width", measure * .03);
 
 	var ampitheater_r3 = heatmap.append("line")
@@ -667,7 +667,7 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure / 6))
 		.attr("x2", width * .53)
 		.attr("y2", height / 2 + (measure / 6))
-		.attr("class", "section line 68")
+		.attr("class", "section line 68 70")
 		.attr("stroke-width", measure * .03);
 
 	var ampitheater_r2 = heatmap.append("line")
@@ -675,7 +675,7 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure / 6))
 		.attr("x2", width * .5)
 		.attr("y2", height / 2 + (measure / 6))
-		.attr("class", "section line 68")
+		.attr("class", "section line 68 70")
 		.attr("stroke-width", measure * .03);
 
 	var ampitheater_r1 = heatmap.append("line")
@@ -683,7 +683,7 @@ function guenegaud(){
 		.attr("y1", height / 2 - (measure / 6))
 		.attr("x2", width * .47)
 		.attr("y2", height / 2 + (measure / 6))
-		.attr("class", "section line 68")
+		.attr("class", "section line 68 70")
 		.attr("stroke-width", measure * .03);
 
 }
